@@ -53,6 +53,7 @@ public class QuizFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+            //question = holder.mItem.getType().getDescription().replace("x",holder.mItem.getQuestion().getCountry().name);
 
 
             recyclerView.setAdapter(new MyQuizRecyclerViewAdapter(quizzes,context, mListener));

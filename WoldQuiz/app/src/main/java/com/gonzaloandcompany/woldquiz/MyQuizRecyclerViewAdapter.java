@@ -6,6 +6,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.gonzaloandcompany.woldquiz.models.Answer;
+import com.gonzaloandcompany.woldquiz.models.QuestionType;
 import com.gonzaloandcompany.woldquiz.models.Quiz;
 
 import java.util.List;
@@ -31,15 +39,38 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        int selectedRadioButtonId;
+        int correctAnswerIndex = -1;
+        int pointCorrectAnswer = 1;
+        String question;
         holder.mItem = quizzes.get(position);
 
+        if (holder.mItem.getType().equals(QuestionType.FLAG)) {
+            Glide.
+                    with(context)
+                    .load(holder.mItem.getQuestion().getCountry().getFlag())
+                    .centerCrop()
+                    .error(android.R.drawable.stat_notify_error)
+                    .into(holder.flag);
+            holder.flag.setVisibility(View.VISIBLE);
+        } else {
+            holder.flag.setVisibility(View.GONE);
+        }
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.question.setText(holder.mItem.getQuestion().getQuestion());
 
-            }
-        });
+        for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
+            ((RadioButton) holder.radioGroup.getChildAt(i)).setText(holder.mItem.getAnswers().get(i).getAnswer());
+            if (holder.mItem.getAnswers().get(i).isCorrect())
+                correctAnswerIndex = i;
+        }
+
+        selectedRadioButtonId = holder.radioGroup.getCheckedRadioButtonId();
+
+        if (selectedRadioButtonId == correctAnswerIndex) {
+            holder.mItem.setPoints(holder.mItem.getPoints() + pointCorrectAnswer);
+        }
+
     }
 
     @Override
@@ -50,10 +81,16 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public Quiz mItem;
+        private TextView question;
+        private ImageView flag;
+        private RadioGroup radioGroup;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
+            question = view.findViewById(R.id.question);
+            radioGroup = view.findViewById(R.id.radioGroup);
+            flag = view.findViewById(R.id.flag);
 
         }
 

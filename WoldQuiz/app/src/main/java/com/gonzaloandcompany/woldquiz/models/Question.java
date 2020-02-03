@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-public class Answer {
-    private long id;
+public class Question {
+    private String question;
     private Pais country;
-    private String answer;
-    private boolean correct;
-
 }

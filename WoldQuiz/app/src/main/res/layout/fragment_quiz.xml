@@ -19,12 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/question"
         app:layout_constraintStart_toStartOf="@+id/question"
-        app:layout_constraintTop_toBottomOf="@+id/question">
+        app:layout_constraintTop_toBottomOf="@+id/flag">
 
         <RadioButton
             android:id="@+id/radioButton1"
@@ -47,5 +48,15 @@
             android:layout_marginBottom="5dp"
             android:text="RadioButton" />
     </RadioGroup>
+
+    <ImageView
+        android:id="@+id/flag"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/question"
+        app:layout_constraintStart_toStartOf="@+id/question"
+        app:layout_constraintTop_toBottomOf="@+id/question"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

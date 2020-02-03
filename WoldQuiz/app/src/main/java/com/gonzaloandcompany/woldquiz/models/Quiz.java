@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class Quiz {
     private long id;
-    private String question;
+    private Question question;
     private List<Answer> answers;
+    private int points;
+    private QuestionType type;
+
 
 }
