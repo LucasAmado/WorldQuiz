@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_ranking"
         android:name="com.gonzaloandcompany.woldquiz.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="Ranking"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
