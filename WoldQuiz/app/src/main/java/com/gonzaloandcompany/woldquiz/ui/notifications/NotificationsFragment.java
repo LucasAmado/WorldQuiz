@@ -46,55 +46,7 @@ public class NotificationsFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-
-        lvUsers = root.findViewById(R.id.lvUsers);
-
-        db.collection("users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot d : task.getResult()) {
-                                userList.add(new User(
-                                        d.getData().get("nombre").toString(),
-                                        d.getData().get("urlFoto").toString(),
-                                        d.getData().get("email").toString(),
-                                        Integer.parseInt(d.getData().get("partidas").toString()),
-                                        Integer.parseInt(d.getData().get("puntos").toString())
-                                ));
-                            }
-
-                            userList.add(new User("User 1", "img", "correo@gmail.com", 10, 2));
-                            userList.add(new User("User 2", "img", "correo2@gmail.com", 32, 9));
-                            userList.add(new User("User 3", "img", "correo3@gmail.com", 14, 4));
-
-
-
-                            Collections.sort(userList, new Comparator<User>() {
-                                @Override
-                                public int compare(User u1, User u2) {
-                                    return u1.getPuntos() - u2.getPuntos();
-                                }
-                            });
-
-                            //adapter
-                            lvUsers.setAdapter(adapter);
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-
-        final TextView textView = root.findViewById(R.id.textViewLista);
-
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        
         return root;
     }
 }

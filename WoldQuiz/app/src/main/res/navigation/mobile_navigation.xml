@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_ranking"
-        android:name="com.gonzaloandcompany.woldquiz.ui.notifications.NotificationsFragment"
+        android:name="com.gonzaloandcompany.woldquiz.ui.notifications.UserFragmentList"
         android:label="Ranking"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_user_list" />
 </navigation>
