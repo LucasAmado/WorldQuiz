@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "131051218830",
+    "firebase_url": "https://worldquiz-g1.firebaseio.com",
+    "project_id": "worldquiz-g1",
+    "storage_bucket": "worldquiz-g1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131051218830:android:f1775dcef11c6546c766df",
+        "android_client_info": {
+          "package_name": "com.gonzaloandcompany.woldquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131051218830-u8h5gapflpahhno0tmndq50thsmk2oa9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwUv6op4jDIPKNWW8G1_TiFjio_-s14nk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131051218830-u8h5gapflpahhno0tmndq50thsmk2oa9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
