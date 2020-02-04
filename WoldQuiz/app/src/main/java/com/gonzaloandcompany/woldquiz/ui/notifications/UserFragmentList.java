@@ -36,7 +36,7 @@ public class UserFragmentList extends Fragment {
     private IUserListener mListener;
     private List<User> userList;
     MyUserRecyclerViewAdapter adapter;
-    FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
 
     public UserFragmentList() {
@@ -66,28 +66,6 @@ public class UserFragmentList extends Fragment {
 
             userList = new ArrayList<>();
 
-            //TODO comentar datos de ejemplo y comprobar dependencias Firebase
-
-            userList.add(new User("User 1", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXXxpUjvgAGG-IIaFgpW_oo9DDX8LAwylBMyx4W7PuEhl-NHj&s", "correo@gmail.com", 10, 2));
-            userList.add(new User("User 2", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXXxpUjvgAGG-IIaFgpW_oo9DDX8LAwylBMyx4W7PuEhl-NHj&s", "correo2@gmail.com", 32, 9));
-            userList.add(new User("User 3", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUXXxpUjvgAGG-IIaFgpW_oo9DDX8LAwylBMyx4W7PuEhl-NHj&s", "correo3@gmail.com", 14, 4));
-
-
-            Collections.sort(userList, new Comparator<User>() {
-                @Override
-                public int compare(User u1, User u2) {
-                    return -(u1.getPuntos() - u2.getPuntos());
-                }
-            });
-
-            adapter = new MyUserRecyclerViewAdapter(
-                    getActivity(),
-                    userList,
-                    mListener
-            );
-
-            recyclerView.setAdapter(adapter);
-/*
             db.collection("users")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -101,29 +79,28 @@ public class UserFragmentList extends Fragment {
                                             Integer.parseInt(d.getData().get("partidas").toString()),
                                             Integer.parseInt(d.getData().get("puntos").toString())
                                     ));
+
+                                    Collections.sort(userList, new Comparator<User>() {
+                                        @Override
+                                        public int compare(User u1, User u2) {
+                                            return u1.getPuntos() - u2.getPuntos();
+                                        }
+                                    });
+
+                                    adapter = new MyUserRecyclerViewAdapter(
+                                            getActivity(),
+                                            userList,
+                                            mListener
+                                    );
+
+                                    recyclerView.setAdapter(adapter);
                                 }
-
-                                Collections.sort(userList, new Comparator<User>() {
-                                    @Override
-                                    public int compare(User u1, User u2) {
-                                        return u1.getPuntos() - u2.getPuntos();
-                                    }
-                                });
-
-                                adapter = new MyUserRecyclerViewAdapter(
-                                        getActivity(),
-                                        userList,
-                                        mListener
-                                );
-
-                                recyclerView.setAdapter(adapter);
 
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());
                             }
                         }
                     });
-*/
 
         }
         return view;
