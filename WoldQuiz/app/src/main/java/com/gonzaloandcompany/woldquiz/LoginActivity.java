@@ -8,22 +8,23 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gonzaloandcompany.woldquiz.models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class LoginActivity extends AppCompatActivity{
     Button btn_logout;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
 
     @Override
@@ -115,15 +116,37 @@ public class LoginActivity extends AppCompatActivity{
     }
 
     private void updateUI(FirebaseUser user) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         if (user != null) {
-
-
             Map<String, Object> data = new HashMap<>();
             data.put("nombre",user.getDisplayName());
             data.put("email",user.getEmail());
             data.put("urlFoto",String.valueOf(user.getPhotoUrl()));
+            data.put("partidas",0);
+            data.put("puntos",0);
 
-            db.collection("users").document(user.getUid()).set(data, SetOptions.merge());
+            db.collection("users")
+                    .document(user.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+
+                                if(document.exists()){
+
+                                }else{
+                                    db.collection("users").document(user.getUid()).set(data);
+                                }
+                            } else {
+
+                            }
+                            }
+
+                    });
 
             btn_login.setVisibility(View.INVISIBLE);
 
