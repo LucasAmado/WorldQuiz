@@ -16,6 +16,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements IUserListener {
 
     @Override
@@ -34,27 +36,9 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.filterIcon) {
-            //programar el filtro
-        } else if (id == R.id.searchIcon) {
-            //programar un buscar
-        } else if (id == R.id.quizIcon) {
-            //programar intent para ir al quiz
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public void onUserClick(User u) {
 
     }
+
 }
