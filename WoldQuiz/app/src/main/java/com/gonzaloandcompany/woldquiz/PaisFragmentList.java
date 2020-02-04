@@ -1,6 +1,7 @@
 package com.gonzaloandcompany.woldquiz;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,22 +15,21 @@ import android.view.ViewGroup;
 
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
+import com.gonzaloandcompany.woldquiz.models.Pais;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
 public class PaisFragmentList extends Fragment {
 
-    // TODO: Customize parameter argument names
+    private List<Pais> listaPaises = new ArrayList<>();
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private IPaisesListener paisesListener;
+    private PaisService paisService;
+    private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
+    private ServiceGeneratorPais serviceGeneratorPais;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,7 +71,8 @@ public class PaisFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPaisRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            serviceGeneratorPais = ServiceGeneratorPais.createService(ServiceGeneratorPais.class);
+
         }
         return view;
     }
@@ -80,32 +81,25 @@ public class PaisFragmentList extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof IPaisesListener) {
+            paisesListener = (IPaisesListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement IPaisesListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        paisesListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+    private class llamadaAsincTask extends AsyncTask<Void, Void ,List<Pais>>{
+
+        @Override
+        protected List<Pais> doInBackground(Void... voids) {
+            return null;
+        }
     }
 }

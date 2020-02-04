@@ -7,24 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.gonzaloandcompany.woldquiz.PaisFragmentList.OnListFragmentInteractionListener;
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
+import com.gonzaloandcompany.woldquiz.models.Pais;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private List<Pais> listaPaises;
+    private IPaisesListener paisesListener;
 
-    public MyPaisRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyPaisRecyclerViewAdapter(List<Pais> listaPaises, IPaisesListener paisesListener) {
+        listaPaises = listaPaises;
+        paisesListener = paisesListener;
     }
 
     @Override
@@ -36,17 +32,17 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = listaPaises.get(position);
+        //holder.mIdView.setText(listaPaises.get(position).id);
+        //holder.mContentView.setText(listaPaises.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != paisesListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    paisesListener.onClickPais(holder.mItem);
                 }
             }
         });
@@ -54,14 +50,14 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return listaPaises.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Pais mItem;
 
         public ViewHolder(View view) {
             super(view);
