@@ -49,18 +49,21 @@ public class UserFragmentList extends Fragment {
     public UserFragmentList() {
     }
 
+    //Crear un menú en el fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+    //Seleccionar el menú y añadir las opciones
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_user_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    //Tratamiento del menú al seleccionar un icono
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -70,10 +73,9 @@ public class UserFragmentList extends Fragment {
                         @Override
                         public int compare(User u1, User u2) {
                             int orden = 0;
-                            int maxPuntos=5;
                             tipoFiltro=1;
-                            if(u1.getPuntos()>0 && u2.getPuntos()>0){
-                                orden = -((u1.getPuntos()/u1.getPartidas()*maxPuntos) - (u2.getPuntos()/u2.getPartidas()*maxPuntos));
+                            if(u1.getPartidas()>0 && u2.getPartidas()>0){
+                                orden = -(u1.getPuntos()/u1.getPartidas() - u2.getPuntos()/u2.getPartidas());
                             }
                             return orden;
                         }
