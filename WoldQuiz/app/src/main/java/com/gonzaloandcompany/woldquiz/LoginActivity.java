@@ -32,12 +32,13 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity{
 
     static final int GOOGLE_SIGN_IN = 123;
+
     FirebaseAuth mAuth;
     SignInButton btn_login;
     Button btn_logout;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -117,7 +118,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private void updateUI(FirebaseUser user) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
         if (user != null) {
             Map<String, Object> data = new HashMap<>();
@@ -130,23 +131,16 @@ public class LoginActivity extends AppCompatActivity{
             db.collection("users")
                     .document(user.getUid())
                     .get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
 
-                                if(document.exists()){
-
-                                }else{
-                                    db.collection("users").document(user.getUid()).set(data);
-                                }
-                            } else {
-
+                            if(!document.exists()){
+                                db.collection("users").document(user.getUid()).set(data);
                             }
-                            }
-
-                    });
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        } });
 
             btn_login.setVisibility(View.INVISIBLE);
 
