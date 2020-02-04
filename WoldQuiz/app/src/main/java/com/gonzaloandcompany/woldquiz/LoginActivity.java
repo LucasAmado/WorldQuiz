@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gonzaloandcompany.woldquiz.models.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -22,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -111,23 +116,25 @@ public class LoginActivity extends AppCompatActivity{
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Map <String,User> usuario = new HashMap<String, User>();
-            usuario.put("nombre",user.getDisplayName());
-            usuario.put("foto",String.valueOf(user.getPhotoUrl()));
-            usuario.put("email",user.getEmail());
 
 
-            db.collection("users").document(user.getUid()).set();
+            Map<String, Object> data = new HashMap<>();
+            data.put("nombre",user.getDisplayName());
+            data.put("email",user.getEmail());
+            data.put("urlFoto",String.valueOf(user.getPhotoUrl()));
+
+            db.collection("users").document(user.getUid()).set(data, SetOptions.merge());
 
             btn_login.setVisibility(View.INVISIBLE);
+
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
         } else {
             btn_login.setVisibility(View.VISIBLE);
-
         }
+
 
     }
 
