@@ -48,7 +48,7 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
         if (holder.mItem.getType().equals(QuestionType.FLAG)) {
             Glide.
                     with(context)
-                    .load(holder.mItem.getQuestion().getCountry().getFlag())
+                    .load(holder.mItem.getQuestion())
                     .centerCrop()
                     .error(android.R.drawable.stat_notify_error)
                     .into(holder.flag);

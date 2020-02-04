@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class Question {
     private String question;
-    private Pais country;
+
 }
