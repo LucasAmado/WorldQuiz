@@ -1,5 +1,6 @@
 package com.gonzaloandcompany.woldquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.searchIcon) {
             //programar un buscar
         } else if (id == R.id.quizIcon) {
-            //programar intent para ir al quiz
+            Intent quiz = new Intent(this, QuizActivity.class);
+            startActivity(quiz);
         }
         return super.onOptionsItemSelected(item);
     }

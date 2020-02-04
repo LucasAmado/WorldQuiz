@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,38 +42,41 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        int correctAnswerIndex = -1;
-        int pointCorrectAnswer = 1;
-        String question;
         holder.mItem = quizzes.get(position);
 
         if (holder.mItem.getType().equals(QuestionType.FLAG)) {
+            holder.question.setText(holder.mItem.getType().getDescription());
             Glide.
                     with(context)
-                    .load(holder.mItem.getQuestion())
+                    .load("https://www.countryflags.io/" + holder.mItem.getQuestion().getQuestion() + "/flat/64.png")
                     .centerCrop()
                     .error(android.R.drawable.stat_notify_error)
                     .into(holder.flag);
             holder.flag.setVisibility(View.VISIBLE);
         } else {
             holder.flag.setVisibility(View.GONE);
+            holder.question.setText(holder.mItem.getQuestion().getQuestion());
         }
 
-        holder.question.setText(holder.mItem.getQuestion().getQuestion());
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
             ((RadioButton) holder.radioGroup.getChildAt(i)).setText(holder.mItem.getAnswers().get(i).getAnswer());
-
         }
+
         holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int selectedRadioButtonId;
-                selectedRadioButtonId = holder.radioGroup.getCheckedRadioButtonId();
-                holder.mItem.setSelected(holder.mItem.getAnswers().get(selectedRadioButtonId));
+                String idRadioButton;
+                RadioButton radioButton;
+
+                radioButton = (RadioButton) holder.mView.findViewById(checkedId);
+                idRadioButton = radioButton.getResources().getResourceEntryName(radioButton.getId());
+
+                idRadioButton = idRadioButton.substring(idRadioButton.length() - 1);
+
+                holder.mItem.setSelected(holder.mItem.getAnswers().get(Integer.parseInt(idRadioButton) - 1));
             }
         });
-
 
     }
 
