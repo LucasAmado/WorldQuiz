@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Answer {
-    private long id;
-    private Pais country;
     private String answer;
-    private boolean correct;
+
 
 }

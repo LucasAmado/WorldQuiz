@@ -3,6 +3,7 @@ package com.gonzaloandcompany.woldquiz;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,7 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        int selectedRadioButtonId;
+
         int correctAnswerIndex = -1;
         int pointCorrectAnswer = 1;
         String question;
@@ -61,15 +62,17 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
             ((RadioButton) holder.radioGroup.getChildAt(i)).setText(holder.mItem.getAnswers().get(i).getAnswer());
-            if (holder.mItem.getAnswers().get(i).isCorrect())
-                correctAnswerIndex = i;
-        }
 
-        selectedRadioButtonId = holder.radioGroup.getCheckedRadioButtonId();
-
-        if (selectedRadioButtonId == correctAnswerIndex) {
-            holder.mItem.setPoints(holder.mItem.getPoints() + pointCorrectAnswer);
         }
+        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                int selectedRadioButtonId;
+                selectedRadioButtonId = holder.radioGroup.getCheckedRadioButtonId();
+                holder.mItem.setSelected(holder.mItem.getAnswers().get(selectedRadioButtonId));
+            }
+        });
+
 
     }
 
