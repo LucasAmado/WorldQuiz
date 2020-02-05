@@ -1,12 +1,15 @@
 package com.gonzaloandcompany.woldquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.models.User;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IUserListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +40,45 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.filterIcon) {
+            //programar el filtro
+        } else if (id == R.id.searchIcon) {
+            //programar un buscar
+        } else if (id == R.id.quizIcon) {
+            //programar intent para ir al quiz
+        } else if (id == R.id.logout){
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
+        } else if (id == R.id.perfil){
+            //programar para ir al perfil
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+>>>>>>> login/registro
 
     public void onUserClick(User u) {
 
     }
 
+<<<<<<< HEAD
+=======
+    //cerrar aplicación sin volver al login
+    public void onBackPressed() {
+        this.finish();
+    }
+
+
+>>>>>>> login/registro
 }
