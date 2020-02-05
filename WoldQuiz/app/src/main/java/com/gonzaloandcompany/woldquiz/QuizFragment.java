@@ -160,8 +160,8 @@ public class QuizFragment extends Fragment {
                     question = type.getDescription().replace("x", p.getName());
                     answers = Arrays.asList(
                             new Answer(p.getCapital()),
-                            new Answer(getCountryRandom(paises, p).getCapital()),
-                            new Answer(getCountryRandom(paises, p).getCapital())
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getCapital()),
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getCapital())
                     );
 
                 } else if (i == 1) {
@@ -169,8 +169,8 @@ public class QuizFragment extends Fragment {
                     question = type.getDescription().replace("x", (p.getCurrencies().get(0).getName() + " (" + p.getCurrencies().get(0).getSymbol()) + ")");
                     answers = Arrays.asList(
                             new Answer(p.getName()),
-                            new Answer(getCountryRandom(paises, p).getName()),
-                            new Answer(getCountryRandom(paises, p).getName())
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getCurrencies().get(0).getName()),
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getCurrencies().get(0).getName())
                     );
 
                 } else if (i == 2) {
@@ -179,8 +179,8 @@ public class QuizFragment extends Fragment {
                     question = type.getDescription().replace("x", p.getName());
                     answers = Arrays.asList(
                             new Answer(getBorders(p, paises)),
-                            new Answer(getBorders(getCountryRandom(paises, p), paises)),
-                            new Answer(getBorders(getCountryRandom(paises, p), paises))
+                            new Answer(getBorders(checkAnswerNotDuplicated(p, paises,type), paises)),
+                            new Answer(getBorders(checkAnswerNotDuplicated(p, paises,type), paises))
                     );
 
                 } else if (i == 3) {
@@ -197,8 +197,8 @@ public class QuizFragment extends Fragment {
                     question = type.getDescription().replace("x", p.getName());
                     answers = Arrays.asList(
                             new Answer(p.getLanguages().get(0).getName()),
-                            new Answer(getCountryRandom(paises, p).getLanguages().get(0).getName()),
-                            new Answer(getCountryRandom(paises, p).getLanguages().get(0).getName())
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getLanguages().get(0).getName()),
+                            new Answer(checkAnswerNotDuplicated(p, paises,type).getLanguages().get(0).getName())
                     );
                 }
 
@@ -206,7 +206,12 @@ public class QuizFragment extends Fragment {
 
             }
             Log.d("QUIZZES", quizzes.toString());
+            for(Quiz q: quizzes){
+                Collections.shuffle(q.getAnswers());
+            }
+
             Collections.shuffle(quizzes);
+
             Log.d("QUIZZES SHUFFLE", quizzes.toString());
 
             quizRecyclerViewAdapter.notifyDataSetChanged();
@@ -252,6 +257,41 @@ public class QuizFragment extends Fragment {
         }
     }
 
+    public Pais checkAnswerNotDuplicated(Pais pais1, List<Pais> paises, QuestionType type){
+        Pais pais2 = getCountryRandom(paises, pais1);
+        switch (type){
+            case CURRENCY:
+                do{
+                    if(pais1.getCurrencies().get(0).equals(pais2.getCurrencies().get(0)))
+                        pais2= getCountryRandom(paises, pais1);
+
+                }while(pais1.getCurrencies().get(0).equals(pais2.getCurrencies().get(0)));
+
+                break;
+            case CAPITAL:
+                do{
+                    if(pais1.getCapital().equals(pais2.getCapital()))
+                        pais2= getCountryRandom(paises, pais1);
+
+                }while(pais1.getCapital().equals(pais2.getCapital()));
+                break;
+            case LANGUAGE:
+                do{
+                    if(pais1.getLanguages().get(0).equals(pais2.getLanguages().get(0)))
+                        pais2= getCountryRandom(paises, pais1);
+
+                }while(pais1.getLanguages().get(0).equals(pais2.getLanguages().get(0)));
+                break;
+            case BORDERS:
+                do{
+                    if(pais1.getBorders().equals(pais2.getBorders()))
+                        pais2= getCountryRandom(paises, pais1);
+                }while(pais1.getBorders().equals(pais2.getBorders()));
+                break;
+        }
+
+        return pais2;
+    }
 
     public String getBorders(Pais pais, List<Pais> paises) {
         String result = "";

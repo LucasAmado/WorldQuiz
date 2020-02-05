@@ -57,21 +57,25 @@ public class MyQuizResolvedViewAdapter extends RecyclerView.Adapter<MyQuizResolv
             holder.question.setText(holder.mItem.getQuestion().getQuestion());
         }
 
-        holder.radioGroup.setClickable(false);
-        holder.radioGroup.setEnabled(false);
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
             RadioButton radioButton =((RadioButton) holder.radioGroup.getChildAt(i));
+            radioButton.setEnabled(false);
+            //TEXTO
             if (holder.mItem.getAnswers().get(i).getAnswer().isEmpty() || holder.mItem.getAnswers().get(i).getAnswer() == null)
                 radioButton.setText("Ninguna de las respuestas propuestas son correctas");
             else
                 radioButton.setText(holder.mItem.getAnswers().get(i).getAnswer());
 
+            //SELECCIONADOS
             if(holder.mItem.getSelected().equals(holder.mItem.getAnswers().get(i))){
+                radioButton.setEnabled(true);
+                radioButton.setChecked(true);
                 if(holder.mItem.getSelected().equals(holder.mItem.getCorrect()))
                     radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
                 else
                     radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+
             }else if(holder.mItem.getCorrect().equals(holder.mItem.getAnswers().get(i))){
                 radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
             }
