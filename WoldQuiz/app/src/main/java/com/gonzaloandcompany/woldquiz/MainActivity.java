@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-<<<<<<< HEAD
-=======
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_menu, menu);
@@ -66,19 +65,17 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         return super.onOptionsItemSelected(item);
     }
 
->>>>>>> login/registro
 
     public void onUserClick(User u) {
 
     }
 
-<<<<<<< HEAD
-=======
+
     //cerrar aplicación sin volver al login
     public void onBackPressed() {
         this.finish();
     }
 
 
->>>>>>> login/registro
+
 }
