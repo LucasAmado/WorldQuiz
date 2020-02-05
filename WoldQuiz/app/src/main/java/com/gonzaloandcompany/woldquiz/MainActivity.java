@@ -8,8 +8,12 @@ import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.models.User;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +27,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements IUserListener {
 
+    FirebaseUser user;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,13 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
 
@@ -57,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         } else if (id == R.id.quizIcon) {
             //programar intent para ir al quiz
         } else if (id == R.id.logout){
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseAuth.getInstance().signOut();
+            mGoogleSignInClient.signOut();
             Intent loginActivity = new Intent(this, LoginActivity.class);
             startActivity(loginActivity);
         } else if (id == R.id.perfil){

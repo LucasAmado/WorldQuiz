@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     SignInButton btn_login;
+    FirebaseUser user;
     Button btn_logout;
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
@@ -44,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         btn_login = findViewById(R.id.sign_in_button);
-        btn_logout = findViewById(R.id.buttonLogout);
         progressBar = findViewById(R.id.progressBarLogin);
 
         mAuth = FirebaseAuth.getInstance();
@@ -58,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         btn_login.setOnClickListener(v -> SignInGoogle());
-        btn_logout.setOnClickListener(v -> Logout());
-
 
         if (mAuth.getCurrentUser() != null) {
             FirebaseUser user = mAuth.getCurrentUser();
@@ -102,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.INVISIBLE);
 
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        user = mAuth.getCurrentUser();
                         updateUI(user);
 
 
@@ -144,20 +142,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-            btn_login.setVisibility(View.INVISIBLE);
 
 
 
-        } else {
-            btn_login.setVisibility(View.VISIBLE);
+
         }
 
 
-    }
-
-    public void Logout() {
-        FirebaseAuth.getInstance().signOut();
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                task -> updateUI(null));
     }
 }
