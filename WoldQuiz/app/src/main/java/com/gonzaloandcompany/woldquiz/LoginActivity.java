@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -17,7 +16,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     static final int GOOGLE_SIGN_IN = 123;
 
@@ -39,7 +37,6 @@ public class LoginActivity extends AppCompatActivity{
     ProgressBar progressBar;
     GoogleSignInClient mGoogleSignInClient;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +56,9 @@ public class LoginActivity extends AppCompatActivity{
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
         btn_login.setOnClickListener(v -> SignInGoogle());
         btn_logout.setOnClickListener(v -> Logout());
-
 
 
         if (mAuth.getCurrentUser() != null) {
@@ -85,7 +82,12 @@ public class LoginActivity extends AppCompatActivity{
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account != null) firebaseAuthWithGoogle(account);
+                if (account != null){
+                    firebaseAuthWithGoogle(account);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    this.finish();
+                }
             } catch (ApiException e) {
                 Log.w("TAG", "Google sign in failed", e);
             }
@@ -119,14 +121,13 @@ public class LoginActivity extends AppCompatActivity{
     private void updateUI(FirebaseUser user) {
 
 
-
         if (user != null) {
             Map<String, Object> data = new HashMap<>();
-            data.put("nombre",user.getDisplayName());
-            data.put("email",user.getEmail());
-            data.put("urlFoto",String.valueOf(user.getPhotoUrl()));
-            data.put("partidas",0);
-            data.put("puntos",0);
+            data.put("nombre", user.getDisplayName());
+            data.put("email", user.getEmail());
+            data.put("urlFoto", String.valueOf(user.getPhotoUrl()));
+            data.put("partidas", 0);
+            data.put("puntos", 0);
 
             db.collection("users")
                     .document(user.getUid())
@@ -135,18 +136,17 @@ public class LoginActivity extends AppCompatActivity{
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
 
-                            if(!document.exists()){
+                            if (!document.exists()) {
                                 db.collection("users").document(user.getUid()).set(data);
                             }
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
-                        } });
+                        }
+                    });
 
             btn_login.setVisibility(View.INVISIBLE);
 
 
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
 
         } else {
             btn_login.setVisibility(View.VISIBLE);
@@ -155,7 +155,7 @@ public class LoginActivity extends AppCompatActivity{
 
     }
 
-    private void Logout() {
+    public void Logout() {
         FirebaseAuth.getInstance().signOut();
         mGoogleSignInClient.signOut().addOnCompleteListener(this,
                 task -> updateUI(null));

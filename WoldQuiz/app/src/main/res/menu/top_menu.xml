@@ -18,4 +18,10 @@
         android:icon="@drawable/ic_quiz"
         android:title="Quiz"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/perfil"
+        android:title="Mi perfil" />
+    <item
+        android:id="@+id/logout"
+        android:title="Cerrar Sesión" />
 </menu>

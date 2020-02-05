@@ -1,12 +1,15 @@
 package com.gonzaloandcompany.woldquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.models.User;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements IUserListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,11 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
             //programar un buscar
         } else if (id == R.id.quizIcon) {
             //programar intent para ir al quiz
+        } else if (id == R.id.logout){
+            Intent loginActivity = new Intent(this, LoginActivity.class);
+            startActivity(loginActivity);
+        } else if (id == R.id.perfil){
+            //programar para ir al perfil
         }
         return super.onOptionsItemSelected(item);
     }
@@ -57,4 +66,11 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     public void onUserClick(User u) {
 
     }
+
+    //cerrar aplicación sin volver al login
+    public void onBackPressed() {
+        this.finish();
+    }
+
+
 }
