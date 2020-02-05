@@ -1,6 +1,7 @@
 package com.gonzaloandcompany.woldquiz;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
@@ -27,6 +30,7 @@ import com.gonzaloandcompany.woldquiz.models.Quiz;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,6 +45,8 @@ public class QuizFragment extends Fragment {
     private List<Quiz> quizzes;
     private MyQuizRecyclerViewAdapter quizRecyclerViewAdapter;
     private PaisService paisService;
+    private MyQuizResolvedViewAdapter quizResolvedViewAdapter;
+    private boolean isFirstClick = true;
 
     public QuizFragment() {
     }
@@ -57,11 +63,11 @@ public class QuizFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_quiz_list, container, false);
+        Button save = view.findViewById(R.id.quizButtonSave);
 
-
-        if(view.findViewById(R.id.recyclerQuiz)!=null) {
+        if (view.findViewById(R.id.recyclerQuiz) != null) {
             Context context = view.getContext();
             RecyclerView recyclerView = view.findViewById(R.id.recyclerQuiz);
             if (mColumnCount <= 1) {
@@ -70,10 +76,44 @@ public class QuizFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             quizzes = new ArrayList<>();
+
             quizRecyclerViewAdapter = new MyQuizRecyclerViewAdapter(quizzes, context, mListener);
             recyclerView.setAdapter(quizRecyclerViewAdapter);
+
             paisService = ServiceGeneratorPais.createService(PaisService.class);
+
             new loadQuizzes().execute();
+
+
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (quizRecyclerViewAdapter.checkAllRadioButtonAreAnswered() == true) {
+
+                        if (isFirstClick == true) {
+                            int result = 0;
+                            for (Quiz q : quizzes) {
+                                result += q.getPoints();
+                            }
+                            Log.d("RESULTADO DEL TEST", String.valueOf(result));
+                            Log.d("TEST RESUELTO",quizzes.toString());
+                            quizResolvedViewAdapter = new MyQuizResolvedViewAdapter(quizzes, context, mListener);
+                            recyclerView.setAdapter(quizResolvedViewAdapter);
+                            save.setText("Aceptar");
+                            isFirstClick = false;
+                        } else {
+                            isFirstClick = true;
+                            Intent goToRanking = new Intent(context, MainActivity.class);
+                            startActivity(goToRanking);
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Debes contestar a todas las preguntas", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
+
         }
         return view;
     }
@@ -105,7 +145,7 @@ public class QuizFragment extends Fragment {
         @Override
         protected void onPostExecute(List<Pais> paises) {
 
-            int numberOfCountries = 10;
+            int numberOfCountries = 5;
             List<Answer> answers = new ArrayList<>();
             Pais p;
             QuestionType type = null;
@@ -115,7 +155,7 @@ public class QuizFragment extends Fragment {
                 p = getCountryRandom(paises, null);
 
                 //TYPE 0
-                if (i < 2) {
+                if (i == 0) {
                     type = QuestionType.CAPITAL;
                     question = type.getDescription().replace("x", p.getName());
                     answers = Arrays.asList(
@@ -124,7 +164,7 @@ public class QuizFragment extends Fragment {
                             new Answer(getCountryRandom(paises, p).getCapital())
                     );
 
-                } else if (i > 1 && i < 4) {
+                } else if (i == 1) {
                     type = QuestionType.CURRENCY;
                     question = type.getDescription().replace("x", (p.getCurrencies().get(0).getName() + " (" + p.getCurrencies().get(0).getSymbol()) + ")");
                     answers = Arrays.asList(
@@ -133,7 +173,7 @@ public class QuizFragment extends Fragment {
                             new Answer(getCountryRandom(paises, p).getName())
                     );
 
-                } else if (i > 3 && i < 6) {
+                } else if (i == 2) {
                     type = QuestionType.BORDERS;
 
                     question = type.getDescription().replace("x", p.getName());
@@ -143,7 +183,7 @@ public class QuizFragment extends Fragment {
                             new Answer(getBorders(getCountryRandom(paises, p), paises))
                     );
 
-                } else if (i > 5 && i < 8) {
+                } else if (i == 3) {
                     type = QuestionType.FLAG;
                     question = p.alpha2Code;
                     answers = Arrays.asList(
@@ -152,7 +192,7 @@ public class QuizFragment extends Fragment {
                             new Answer(getCountryRandom(paises, p).getName())
                     );
 
-                } else if (i > 7 && i < 10) {
+                } else if (i == 4) {
                     type = QuestionType.LANGUAGE;
                     question = type.getDescription().replace("x", p.getName());
                     answers = Arrays.asList(
@@ -166,6 +206,8 @@ public class QuizFragment extends Fragment {
 
             }
             Log.d("QUIZZES", quizzes.toString());
+            Collections.shuffle(quizzes);
+            Log.d("QUIZZES SHUFFLE", quizzes.toString());
 
             quizRecyclerViewAdapter.notifyDataSetChanged();
         }
