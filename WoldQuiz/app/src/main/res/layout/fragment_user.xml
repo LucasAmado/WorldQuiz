@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="20dp">
+    android:layout_margin="20dp"
+    android:layout_marginTop="10dp"
+    android:clipToPadding="false"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/imageViewFoto"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -30,20 +33,22 @@
         android:id="@+id/textViewPntos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:text="Puntos"
+        android:textColor="@android:color/holo_orange_light"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewTrofeo"
-        app:layout_constraintStart_toEndOf="@+id/imageViewTrofeo"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageViewTrofeo" />
 
     <ImageView
         android:id="@+id/imageViewTrofeo"
         android:layout_width="20dp"
         android:layout_height="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPartidas"
-        app:layout_constraintStart_toStartOf="@+id/textViewNombre"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNombre"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPartidas"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPntos"
+        app:layout_constraintTop_toTopOf="@+id/textViewPartidas"
         app:srcCompat="@drawable/ic_puntos" />
 
     <TextView
@@ -54,5 +59,6 @@
         android:text="Partidas"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewFoto"
-        app:layout_constraintStart_toStartOf="@+id/imageViewTrofeo" />
+        app:layout_constraintStart_toStartOf="@+id/textViewNombre" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

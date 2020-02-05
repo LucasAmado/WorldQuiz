@@ -19,6 +19,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements IUserListener {
 
 
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -67,10 +70,12 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
 
     }
 
+
     //cerrar aplicación sin volver al login
     public void onBackPressed() {
         this.finish();
     }
+
 
 
 }
