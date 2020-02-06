@@ -41,8 +41,12 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.tvNombre.setText(holder.mItem.getNombre());
-        holder.tvPuntos.setText(String.valueOf(holder.mItem.getPuntos())+" puntos");
+        holder.tvPuntos.setText(String.valueOf(holder.mItem.getPuntos()));
         holder.tvPartidas.setText(String.valueOf(holder.mItem.getPartidas())+" partidas");
+
+        if(holder.mItem.getUrlFoto()==""){
+            holder.mItem.setUrlFoto("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFxr5w6bxgin4xai7ml94KENW-HsV4MPgy12_aiCMFxGLMt-JI");
+        }
 
         Glide
                 .with(context)
