@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:layout_marginTop="10dp"
+    android:clipToPadding="false"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageViewFoto"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Nombre"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFoto"
+        app:layout_constraintTop_toTopOf="@+id/imageViewFoto" />
+
+    <TextView
+        android:id="@+id/textViewPntos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puntos"
+        android:textColor="@android:color/holo_orange_light"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewTrofeo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageViewTrofeo" />
+
+    <ImageView
+        android:id="@+id/imageViewTrofeo"
+        android:layout_width="20dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPartidas"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPntos"
+        app:layout_constraintTop_toTopOf="@+id/textViewPartidas"
+        app:srcCompat="@drawable/ic_puntos" />
+
+    <TextView
+        android:id="@+id/textViewPartidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Partidas"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewFoto"
+        app:layout_constraintStart_toStartOf="@+id/textViewNombre" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".PaisFragmentList"
-    tools:listitem="@layout/fragment_pais" />
+    tools:listitem="@layout/fragment_pais" >
+</androidx.recyclerview.widget.RecyclerView>
