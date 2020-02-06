@@ -2,12 +2,14 @@ package com.gonzaloandcompany.woldquiz;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
+import com.bumptech.glide.Glide;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 
 import java.util.List;
@@ -15,10 +17,12 @@ import java.util.List;
 
 public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecyclerViewAdapter.ViewHolder> {
 
+    private Context ctx;
     private List<Pais> listaPaises;
     private IPaisesListener paisesListener;
 
-    public MyPaisRecyclerViewAdapter(List<Pais> listaPaises, IPaisesListener paisesListener) {
+    public MyPaisRecyclerViewAdapter(Context ctx, List<Pais> listaPaises, IPaisesListener paisesListener) {
+        ctx = ctx;
         listaPaises = listaPaises;
         paisesListener = paisesListener;
     }
@@ -33,19 +37,16 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = listaPaises.get(position);
-        //holder.mIdView.setText(listaPaises.get(position).id);
-        //holder.mContentView.setText(listaPaises.get(position).content);
+        holder.tvPais.setText(holder.mItem.getName());
+        holder.tvCapital.setText(holder.mItem.getCapital());
+        holder.tvmoneda.setText(holder.mItem.getCurrencies().getClass().getName());
+        holder.tvidioma.setText(holder.mItem.getLanguages().getClass().getName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != paisesListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    paisesListener.onClickPais(holder.mItem);
-                }
-            }
-        });
+        Glide.with(ctx)
+                .load(holder.urlImagen)
+                .into(holder.bandera);
+       // holder.mView.setOnClickListener(new View.OnClickListener() {
+       // });
     }
 
     @Override
@@ -55,20 +56,26 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public TextView tvPais;
+        public TextView tvCapital;
+        public TextView tvmoneda;
+        public TextView tvidioma;
+        public ImageView bandera;
+        public ImageView urlImagen;
         public Pais mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            tvPais = (TextView) view.findViewById(R.id.textViewDetallePais);
+            tvCapital = (TextView) view.findViewById(R.id.textViewCapital);
+            tvmoneda = (TextView) view.findViewById(R.id.textViewMoneda);
+            tvidioma = (TextView) view.findViewById(R.id.textViewIdioma);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + tvPais.getText() + "'";
         }
     }
 }
