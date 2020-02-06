@@ -4,4 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="save">Guardar</string>
+    <string name="OptionA">A. </string>
+    <string name="OptionB">B. </string>
+    <string name="OptionC">C. </string>
 </resources>

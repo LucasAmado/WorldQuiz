@@ -44,13 +44,16 @@ public class MyQuizResolvedViewAdapter extends RecyclerView.Adapter<MyQuizResolv
         holder.mItem = quizzes.get(position);
 
         if (holder.mItem.getType().equals(QuestionType.FLAG)) {
+
             holder.question.setText(holder.mItem.getType().getDescription());
+
             Glide.
                     with(context)
                     .load("https://www.countryflags.io/" + holder.mItem.getQuestion().getQuestion() + "/flat/64.png")
                     .centerCrop()
                     .error(android.R.drawable.stat_notify_error)
                     .into(holder.flag);
+
             holder.flag.setVisibility(View.VISIBLE);
         } else {
             holder.flag.setVisibility(View.GONE);
@@ -61,31 +64,28 @@ public class MyQuizResolvedViewAdapter extends RecyclerView.Adapter<MyQuizResolv
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
             RadioButton radioButton =((RadioButton) holder.radioGroup.getChildAt(i));
             radioButton.setEnabled(false);
+
             //TEXTO
             if (holder.mItem.getAnswers().get(i).getAnswer().isEmpty() || holder.mItem.getAnswers().get(i).getAnswer() == null)
-                radioButton.setText("Ninguna de las respuestas propuestas son correctas");
+                radioButton.setText(radioButton.getText().toString()+" "+"Ninguna de las respuestas propuestas son correctas");
             else
-                radioButton.setText(holder.mItem.getAnswers().get(i).getAnswer());
+                radioButton.setText(radioButton.getText().toString()+" "+holder.mItem.getAnswers().get(i).getAnswer());
 
             //SELECCIONADOS
             if(holder.mItem.getSelected().equals(holder.mItem.getAnswers().get(i))){
                 radioButton.setEnabled(true);
                 radioButton.setChecked(true);
+
+                radioButton.setTextColor(context.getResources().getColor(android.R.color.white));
+
                 if(holder.mItem.getSelected().equals(holder.mItem.getCorrect()))
                     radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_green);
-                    //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
-                else {
+                else
                     radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_red);
-                    radioButton.setTextColor(context.getResources().getColor(android.R.color.white));
-                    //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
-                }
-            }else if(holder.mItem.getCorrect().equals(holder.mItem.getAnswers().get(i))){
+
+            }else if(holder.mItem.getCorrect().equals(holder.mItem.getAnswers().get(i)))
                 radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_green);
-                //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
-            }
         }
-
-
     }
 
     @Override

@@ -23,6 +23,7 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
     private final List<Quiz> quizzes;
     private final Context context;
     private final IQuizListener mListener;
+    private int lastChecked;
 
     public MyQuizRecyclerViewAdapter(List<Quiz> quiz, Context context, IQuizListener mListener) {
         this.quizzes = quiz;
@@ -58,10 +59,11 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
+            RadioButton radioButton =((RadioButton)holder.radioGroup.getChildAt(i));
             if (holder.mItem.getAnswers().get(i).getAnswer().isEmpty() || holder.mItem.getAnswers().get(i).getAnswer() == null)
-                ((RadioButton) holder.radioGroup.getChildAt(i)).setText("Ninguna de las respuestas propuestas son correctas");
+                radioButton.setText(radioButton.getText().toString()+" "+"Ninguna de las respuestas propuestas son correctas");
             else
-                ((RadioButton) holder.radioGroup.getChildAt(i)).setText(holder.mItem.getAnswers().get(i).getAnswer());
+                radioButton.setText(radioButton.getText().toString()+" "+holder.mItem.getAnswers().get(i).getAnswer());
         }
 
         holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -69,15 +71,25 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 String idRadioButton;
                 RadioButton radioButton;
+                RadioButton rb;
                 int point = 1;
                 int incorrect = 0;
-
                 radioButton = (RadioButton) holder.mView.findViewById(checkedId);
+
+
                 if(radioButton.isChecked()){
+
                     radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_checked);
-                }else{
-                    radioButton.setBackgroundResource(R.drawable.radiobutton_quiz);
+
+                    for( int i =0;i<group.getChildCount();i++){
+                        rb = (RadioButton)holder.mView.findViewById(group.getChildAt(i).getId());
+                        if(!rb.equals(radioButton)){
+                            rb.setBackgroundResource(R.drawable.radiobutton_quiz);
+                        }
+                    }
+
                 }
+
                 idRadioButton = radioButton.getResources().getResourceEntryName(radioButton.getId());
 
                 idRadioButton = idRadioButton.substring(idRadioButton.length() - 1);
@@ -90,6 +102,7 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
                     holder.mItem.setPoints(incorrect);
 
             }
+
         });
 
     }
@@ -129,4 +142,6 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
     public List<Quiz> getResultOfQuiz() {
         return quizzes;
     }
+
+
 }

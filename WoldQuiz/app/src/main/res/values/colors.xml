@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4FC3F7</color>
-    <color name="colorPrimaryDark">#0093C4</color>
-    <color name="colorAccent">#8bf6ff</color>
+    <color name="colorPrimary">#dc001b</color>
+    <color name="colorPrimaryDark">#a10000</color>
+    <color name="colorAccent">#ff5345</color>
     <color name="correct">#8bf6ff</color>
     <color name="incorrect">#8bf6ff</color>
+    <color name="background_quiz">#C3BEBE</color>
 </resources>

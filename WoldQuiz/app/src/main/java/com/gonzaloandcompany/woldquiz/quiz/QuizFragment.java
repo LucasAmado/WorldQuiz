@@ -151,7 +151,6 @@ public class QuizFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<Pais> paises) {
-
             int numberOfCountries = 5;
             List<Answer> answers = new ArrayList<>();
             Pais p;
@@ -212,14 +211,11 @@ public class QuizFragment extends Fragment {
                 quizzes.add(new Quiz(new Question(question), answers, null, answers.get(0), 0, type));
 
             }
-            Log.d("QUIZZES", quizzes.toString());
+
             for(Quiz q: quizzes){
                 Collections.shuffle(q.getAnswers());
             }
-
             Collections.shuffle(quizzes);
-
-            Log.d("QUIZZES SHUFFLE", quizzes.toString());
 
             quizRecyclerViewAdapter.notifyDataSetChanged();
         }
