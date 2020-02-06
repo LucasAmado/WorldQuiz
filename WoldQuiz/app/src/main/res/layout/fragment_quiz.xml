@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="0dp"
+        android:layout_width="323dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:paddingTop="5dp"
@@ -81,6 +81,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
+        android:paddingRight="3dp"
         app:layout_constraintEnd_toEndOf="@+id/question"
         app:layout_constraintStart_toStartOf="@+id/question"
         app:layout_constraintTop_toBottomOf="@+id/question"

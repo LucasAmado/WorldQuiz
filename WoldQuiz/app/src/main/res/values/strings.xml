@@ -7,4 +7,6 @@
     <string name="OptionA">A. </string>
     <string name="OptionB">B. </string>
     <string name="OptionC">C. </string>
+    <string name="numberGames">Partidas</string>
+    <string name="puntos">Puntos</string>
 </resources>

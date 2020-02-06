@@ -68,14 +68,14 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
             Intent quiz = new Intent(this, QuizActivity.class);
             startActivity(quiz);
             //programar intent para ir al quiz
-        } else if (id == R.id.logout){
+        } else if (id == R.id.logout) {
             user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseAuth.getInstance().signOut();
             mGoogleSignInClient.signOut();
             Intent loginActivity = new Intent(this, LoginActivity.class);
             startActivity(loginActivity);
-        } else if (id == R.id.perfil){
-            //programar para ir al perfil
+        } else if (id == R.id.perfil) {
+            Intent perfil = new Intent(this, UserDetailActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     public void onBackPressed() {
         this.finish();
     }
-
 
 
 }

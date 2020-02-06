@@ -18,18 +18,18 @@ public class UserService {
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static FirebaseUser currentUser = mAuth.getCurrentUser();
 
-    public static void addPointsUser(int points){
+    public static void addPointsUser(int points) {
         db.collection("users")
                 .document(currentUser.getUid()).update("puntos", FieldValue.increment(points));
     }
 
-    public static void addGames(){
+    public static void addGames() {
         int increment = 1;
         db.collection("users")
                 .document(currentUser.getUid()).update("partidas", FieldValue.increment(increment));
     }
 
-    public static void getUser(){
+    public static void getUser() {
         db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -37,6 +37,7 @@ public class UserService {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         document.getData();
+                        Log.d("DOCUMENT", document.getData().toString());
                     } else {
 
                     }

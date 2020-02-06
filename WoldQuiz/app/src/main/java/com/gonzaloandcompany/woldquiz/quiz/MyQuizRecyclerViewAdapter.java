@@ -47,7 +47,7 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
             holder.question.setText(holder.mItem.getType().getDescription());
             Glide.
                     with(context)
-                    .load("https://www.countryflags.io/" + holder.mItem.getQuestion().getQuestion() + "/flat/64.png")
+                    .load("https://www.countryflags.io/" + holder.mItem.getQuestion().getQuestion() + "/shiny/64.png")
                     .centerCrop()
                     .error(android.R.drawable.stat_notify_error)
                     .into(holder.flag);
@@ -59,11 +59,11 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
-            RadioButton radioButton =((RadioButton)holder.radioGroup.getChildAt(i));
+            RadioButton radioButton = ((RadioButton) holder.radioGroup.getChildAt(i));
             if (holder.mItem.getAnswers().get(i).getAnswer().isEmpty() || holder.mItem.getAnswers().get(i).getAnswer() == null)
-                radioButton.setText(radioButton.getText().toString()+" "+"Ninguna de las respuestas propuestas son correctas");
+                radioButton.setText(radioButton.getText().toString() + " " + "Ninguna de las respuestas propuestas son correctas");
             else
-                radioButton.setText(radioButton.getText().toString()+" "+holder.mItem.getAnswers().get(i).getAnswer());
+                radioButton.setText(radioButton.getText().toString() + " " + holder.mItem.getAnswers().get(i).getAnswer());
         }
 
         holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -77,13 +77,13 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
                 radioButton = (RadioButton) holder.mView.findViewById(checkedId);
 
 
-                if(radioButton.isChecked()){
+                if (radioButton.isChecked()) {
 
                     radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_checked);
 
-                    for( int i =0;i<group.getChildCount();i++){
-                        rb = (RadioButton)holder.mView.findViewById(group.getChildAt(i).getId());
-                        if(!rb.equals(radioButton)){
+                    for (int i = 0; i < group.getChildCount(); i++) {
+                        rb = (RadioButton) holder.mView.findViewById(group.getChildAt(i).getId());
+                        if (!rb.equals(radioButton)) {
                             rb.setBackgroundResource(R.drawable.radiobutton_quiz);
                         }
                     }
