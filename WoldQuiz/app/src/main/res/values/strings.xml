@@ -9,4 +9,5 @@
     <string name="OptionC">C. </string>
     <string name="numberGames">Partidas</string>
     <string name="puntos">Puntos</string>
+    <string name="problemMessage">Estamos teniendo problemas técnicos. Vuelva a iniciar sesión.</string>
 </resources>

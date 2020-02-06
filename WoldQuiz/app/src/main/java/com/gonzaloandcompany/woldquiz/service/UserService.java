@@ -17,7 +17,7 @@ public class UserService {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static FirebaseUser currentUser = mAuth.getCurrentUser();
-
+    private static User user =  new User();
     public static void addPointsUser(int points) {
         db.collection("users")
                 .document(currentUser.getUid()).update("puntos", FieldValue.increment(points));
@@ -29,23 +29,38 @@ public class UserService {
                 .document(currentUser.getUid()).update("partidas", FieldValue.increment(increment));
     }
 
-    public static void getUser() {
-        db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    public static User getUser() {
+        return db.collection("users")
+                .document(currentUser.getUid())
+                .get()
+                .getResult().toObject(User.class);
+       /* db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            DocumentSnapshot document;
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
+                    document = task.getResult();
                     if (document.exists()) {
-                        document.getData();
-                        Log.d("DOCUMENT", document.getData().toString());
-                    } else {
 
+                        user.setNombre(document.getString("nombre"));
+                        user.setEmail(document.getString("email"));
+                        user.setPartidas(Integer.parseInt(document.getString("partidas")));
+                        user.setUrlFoto(document.getString("urlFoto"));
+                        user.setPuntos(Integer.parseInt(document.getString("puntos")));
+
+                    } else {
+                        Log.d("get failed with ", task.getException().toString());
+                        document=null;
                     }
                 } else {
-                    Log.d("get failed with ", task.getException().toString());
+
+                    document= null;
                 }
 
             }
-        });
+
+        });*/
+
+
     }
 }
