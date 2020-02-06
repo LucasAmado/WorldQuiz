@@ -2,8 +2,6 @@ package com.gonzaloandcompany.woldquiz.service;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.gonzaloandcompany.woldquiz.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -13,11 +11,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class UserService {
+public class UserService  {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static FirebaseUser currentUser = mAuth.getCurrentUser();
     private static User user =  new User();
+
+    public UserService() {
+    }
+
     public static void addPointsUser(int points) {
         db.collection("users")
                 .document(currentUser.getUid()).update("puntos", FieldValue.increment(points));
@@ -29,15 +31,17 @@ public class UserService {
                 .document(currentUser.getUid()).update("partidas", FieldValue.increment(increment));
     }
 
-    public static User getUser() {
-        return db.collection("users")
+    public static Task<DocumentSnapshot> getUser() {
+        return db.collection("users").document(currentUser.getUid()).get();
+        /*return db.collection("users")
                 .document(currentUser.getUid())
                 .get()
-                .getResult().toObject(User.class);
-       /* db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .getResult().toObject(User.class);     */
+        /*db.collection("users").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             DocumentSnapshot document;
+
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     document = task.getResult();
                     if (document.exists()) {
@@ -50,17 +54,17 @@ public class UserService {
 
                     } else {
                         Log.d("get failed with ", task.getException().toString());
-                        document=null;
+                        document = null;
                     }
                 } else {
 
-                    document= null;
+                    document = null;
                 }
 
             }
 
-        });*/
-
-
+        });
+               return null;  */
+    
     }
 }

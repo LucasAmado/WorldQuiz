@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.io.IOException;
+
 public class UserDetailActivity extends AppCompatActivity {
     ImageView avatar, problemImg;
     TextView name, email, score, games, problem;
@@ -39,44 +41,61 @@ public class UserDetailActivity extends AppCompatActivity {
         score = findViewById(R.id.userDetailScore);
         problem = findViewById(R.id.problemMessage);
         progressBar = findViewById(R.id.userDetailProgressBar);
-        new getUser().execute();
+
+        UserService.getUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            @Override
+            public void onComplete(Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document= task.getResult();
+                    if (document.exists()) {
+
+                        user.setNombre(document.getString("nombre"));
+                        user.setEmail(document.getString("email"));
+                        user.setPartidas(Integer.parseInt(document.get("partidas").toString()));
+                        user.setUrlFoto(document.getString("urlFoto"));
+                        user.setPuntos(Integer.parseInt(document.getString("puntos")));
+
+                    } else {
+                        Log.d("get failed with ", task.getException().toString());
+                        user = null;
+                    }
+                } else {
+
+                    user = null;
+                }
 
 
+                progressBar.setVisibility(View.GONE);
+                if (user != null) {
+                    name.setText(user.getNombre());
+                    email.setText(user.getEmail());
+                    games.setText(String.valueOf(user.getPartidas()));
+                    score.setText(String.valueOf(user.getPuntos()));
 
+                    if (user.getUrlFoto() != null)
+                        Glide.with(UserDetailActivity.this).load(user.getUrlFoto()).circleCrop().into(avatar);
+                    else
+                        Glide.with(UserDetailActivity.this).load(R.drawable.default_avatar).circleCrop().into(avatar);
 
+                    avatar.setVisibility(View.VISIBLE);
+                    name.setVisibility(View.VISIBLE);
+                    email.setVisibility(View.VISIBLE);
+                    games.setVisibility(View.VISIBLE);
+                    score.setVisibility(View.VISIBLE);
 
-    }
-    public class getUser extends AsyncTask<Void,Void, User>{
-        @Override
-        protected User doInBackground(Void... voids) {
-            return UserService.getUser();
-        }
+                } else {
+                    problemImg.setVisibility(View.VISIBLE);
+                    problem.setVisibility(View.VISIBLE);
+                }
 
-        @Override
-        protected void onPostExecute(User u) {
-            user=u;
-            progressBar.setVisibility(View.GONE);
-            if (user != null) {
-                name.setText(user.getNombre());
-                email.setText(user.getEmail());
-                games.setText(String.valueOf(user.getPartidas()));
-                score.setText(String.valueOf(user.getPuntos()));
-
-                if (user.getUrlFoto() != null)
-                    Glide.with(UserDetailActivity.this).load(user.getUrlFoto()).circleCrop().into(avatar);
-                else
-                    Glide.with(UserDetailActivity.this).load(R.drawable.default_avatar).circleCrop().into(avatar);
-
-                avatar.setVisibility(View.VISIBLE);
-                name.setVisibility(View.VISIBLE);
-                email.setVisibility(View.VISIBLE);
-                games.setVisibility(View.VISIBLE);
-                score.setVisibility(View.VISIBLE);
-
-            } else {
-                problemImg.setVisibility(View.VISIBLE);
-                problem.setVisibility(View.VISIBLE);
             }
-        }
+
+        });
+
+
+
     }
+
+
 }
