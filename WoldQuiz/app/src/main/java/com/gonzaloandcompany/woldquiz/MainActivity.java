@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
             startActivity(loginActivity);
         } else if (id == R.id.perfil) {
             Intent perfil = new Intent(this, UserDetailActivity.class);
+            startActivity(perfil);
         }
         return super.onOptionsItemSelected(item);
     }
