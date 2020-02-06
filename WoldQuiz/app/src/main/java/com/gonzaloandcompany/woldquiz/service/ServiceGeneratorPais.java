@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.service;
 
 import java.io.IOException;
 import okhttp3.HttpUrl;

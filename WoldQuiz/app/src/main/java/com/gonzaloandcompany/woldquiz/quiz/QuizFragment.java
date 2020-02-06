@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.quiz;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,15 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
+import com.gonzaloandcompany.woldquiz.MainActivity;
+import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.Answer;
-import com.gonzaloandcompany.woldquiz.models.Currency;
-import com.gonzaloandcompany.woldquiz.models.Language;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.models.Question;
 import com.gonzaloandcompany.woldquiz.models.QuestionType;
 import com.gonzaloandcompany.woldquiz.models.Quiz;
+import com.gonzaloandcompany.woldquiz.service.PaisService;
+import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
+import com.gonzaloandcompany.woldquiz.service.UserService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class QuizFragment extends Fragment {
     private PaisService paisService;
     private MyQuizResolvedViewAdapter quizResolvedViewAdapter;
     private boolean isFirstClick = true;
+
 
     public QuizFragment() {
     }
@@ -95,8 +97,13 @@ public class QuizFragment extends Fragment {
                             for (Quiz q : quizzes) {
                                 result += q.getPoints();
                             }
+
                             Log.d("RESULTADO DEL TEST", String.valueOf(result));
                             Log.d("TEST RESUELTO",quizzes.toString());
+                            UserService.addGames();
+                            UserService.addPointsUser(result);
+
+
                             quizResolvedViewAdapter = new MyQuizResolvedViewAdapter(quizzes, context, mListener);
                             recyclerView.setAdapter(quizResolvedViewAdapter);
                             save.setText("Aceptar");

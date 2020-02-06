@@ -1,11 +1,12 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.quiz;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
+
+import com.gonzaloandcompany.woldquiz.R;
 
 public class QuizActivity extends AppCompatActivity implements IQuizListener {
 

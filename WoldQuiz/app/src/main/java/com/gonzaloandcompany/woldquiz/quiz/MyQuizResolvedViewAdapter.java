@@ -1,10 +1,6 @@
-package com.gonzaloandcompany.woldquiz;
-
-import androidx.recyclerview.widget.RecyclerView;
+package com.gonzaloandcompany.woldquiz.quiz;
 
 import android.content.Context;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +9,30 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.gonzaloandcompany.woldquiz.models.Answer;
+import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.QuestionType;
 import com.gonzaloandcompany.woldquiz.models.Quiz;
 
 import java.util.List;
 
-public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecyclerViewAdapter.ViewHolder> {
-
+public class MyQuizResolvedViewAdapter extends RecyclerView.Adapter<MyQuizResolvedViewAdapter.ViewHolder> {
     private final List<Quiz> quizzes;
     private final Context context;
     private final IQuizListener mListener;
 
-    public MyQuizRecyclerViewAdapter(List<Quiz> quiz, Context context, IQuizListener mListener) {
-        this.quizzes = quiz;
+    public MyQuizResolvedViewAdapter(List<Quiz> quizzes, Context context, IQuizListener mListener) {
+        this.quizzes = quizzes;
         this.context = context;
         this.mListener = mListener;
     }
 
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_quiz, parent, false);
         return new ViewHolder(view);
@@ -60,34 +59,32 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
 
         for (int i = 0; i < holder.mItem.getAnswers().size(); i++) {
+            RadioButton radioButton =((RadioButton) holder.radioGroup.getChildAt(i));
+            radioButton.setEnabled(false);
+            //TEXTO
             if (holder.mItem.getAnswers().get(i).getAnswer().isEmpty() || holder.mItem.getAnswers().get(i).getAnswer() == null)
-                ((RadioButton) holder.radioGroup.getChildAt(i)).setText("Ninguna de las respuestas propuestas son correctas");
+                radioButton.setText("Ninguna de las respuestas propuestas son correctas");
             else
-                ((RadioButton) holder.radioGroup.getChildAt(i)).setText(holder.mItem.getAnswers().get(i).getAnswer());
+                radioButton.setText(holder.mItem.getAnswers().get(i).getAnswer());
+
+            //SELECCIONADOS
+            if(holder.mItem.getSelected().equals(holder.mItem.getAnswers().get(i))){
+                radioButton.setEnabled(true);
+                radioButton.setChecked(true);
+                if(holder.mItem.getSelected().equals(holder.mItem.getCorrect()))
+                    radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_green);
+                    //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+                else {
+                    radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_red);
+                    radioButton.setTextColor(context.getResources().getColor(android.R.color.white));
+                    //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_red_dark));
+                }
+            }else if(holder.mItem.getCorrect().equals(holder.mItem.getAnswers().get(i))){
+                radioButton.setBackgroundResource(R.drawable.radiobutton_quiz_green);
+                //radioButton.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+            }
         }
 
-        holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String idRadioButton;
-                RadioButton radioButton;
-                int point = 1;
-                int incorrect = 0;
-
-                radioButton = (RadioButton) holder.mView.findViewById(checkedId);
-                idRadioButton = radioButton.getResources().getResourceEntryName(radioButton.getId());
-
-                idRadioButton = idRadioButton.substring(idRadioButton.length() - 1);
-
-                holder.mItem.setSelected(holder.mItem.getAnswers().get(Integer.parseInt(idRadioButton) - 1));
-
-                if (holder.mItem.getSelected().equals(holder.mItem.getCorrect()))
-                    holder.mItem.setPoints(point);
-                else
-                    holder.mItem.setPoints(incorrect);
-
-            }
-        });
 
     }
 
@@ -114,16 +111,5 @@ public class MyQuizRecyclerViewAdapter extends RecyclerView.Adapter<MyQuizRecycl
 
     }
 
-    public boolean checkAllRadioButtonAreAnswered() {
-        for (Quiz q : quizzes) {
-            if (q.getSelected() == null || q.getSelected().getAnswer().isEmpty()) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    public List<Quiz> getResultOfQuiz() {
-        return quizzes;
-    }
 }

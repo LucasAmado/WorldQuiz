@@ -19,7 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".QuizFragment"
+        tools:context=".quiz.QuizFragment"
         tools:listitem="@layout/fragment_quiz" />
 
     <Button
@@ -38,7 +38,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list"
-    android:name="com.gonzaloandcompany.woldquiz.QuizFragment"
+    android:name="com.gonzaloandcompany.woldquiz.quiz.QuizFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
