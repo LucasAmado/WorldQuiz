@@ -1,13 +1,13 @@
 package com.gonzaloandcompany.woldquiz;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.gonzaloandcompany.woldquiz.models.Pais;
@@ -22,9 +22,9 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
     private IPaisesListener paisesListener;
 
     public MyPaisRecyclerViewAdapter(Context ctx, List<Pais> listaPaises, IPaisesListener paisesListener) {
-        ctx = ctx;
-        listaPaises = listaPaises;
-        paisesListener = paisesListener;
+        this.ctx = ctx;
+        this.listaPaises = listaPaises;
+        this.paisesListener = paisesListener;
     }
 
     @Override
@@ -39,12 +39,12 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
         holder.mItem = listaPaises.get(position);
         holder.tvPais.setText(holder.mItem.getName());
         holder.tvCapital.setText(holder.mItem.getCapital());
-        holder.tvmoneda.setText(holder.mItem.getCurrencies().getClass().getName());
-        holder.tvidioma.setText(holder.mItem.getLanguages().getClass().getName());
+        holder.tvMoneda.setText(holder.mItem.getCurrencies().get(0).getName());
+        holder.tvIdioma.setText(holder.mItem.getLanguages().get(0).getName());
 
         Glide.with(ctx)
-                .load(holder.urlImagen)
-                .into(holder.bandera);
+                .load("https://www.countryflags.io/" + holder.mItem.getAlpha2Code() + "/shiny/64.png")
+                .into(holder.ivBandera);
        // holder.mView.setOnClickListener(new View.OnClickListener() {
        // });
     }
@@ -58,10 +58,9 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
         public final View mView;
         public TextView tvPais;
         public TextView tvCapital;
-        public TextView tvmoneda;
-        public TextView tvidioma;
-        public ImageView bandera;
-        public ImageView urlImagen;
+        public TextView tvMoneda;
+        public TextView tvIdioma;
+        public ImageView ivBandera;
         public Pais mItem;
 
         public ViewHolder(View view) {
@@ -69,13 +68,9 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
             mView = view;
             tvPais = (TextView) view.findViewById(R.id.textViewDetallePais);
             tvCapital = (TextView) view.findViewById(R.id.textViewCapital);
-            tvmoneda = (TextView) view.findViewById(R.id.textViewMoneda);
-            tvidioma = (TextView) view.findViewById(R.id.textViewIdioma);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + tvPais.getText() + "'";
+            tvMoneda = (TextView) view.findViewById(R.id.textViewMoneda);
+            tvIdioma = (TextView) view.findViewById(R.id.textViewIdioma);
+            ivBandera = view.findViewById(R.id.imageViewBandera);
         }
     }
 }

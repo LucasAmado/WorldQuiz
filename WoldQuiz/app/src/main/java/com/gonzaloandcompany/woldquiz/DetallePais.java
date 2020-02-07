@@ -1,10 +1,10 @@
 package com.gonzaloandcompany.woldquiz;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-public class detallePais extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DetallePais extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

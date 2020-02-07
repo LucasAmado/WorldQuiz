@@ -3,22 +3,25 @@ package com.gonzaloandcompany.woldquiz;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
 import com.gonzaloandcompany.woldquiz.models.Pais;
+import com.gonzaloandcompany.woldquiz.service.PaisService;
+import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class PaisFragmentList extends Fragment {
 
@@ -28,7 +31,6 @@ public class PaisFragmentList extends Fragment {
     private IPaisesListener paisesListener;
     private PaisService paisService;
     private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
-    private ServiceGeneratorPais serviceGeneratorPais;
 
 
     /**
@@ -71,8 +73,11 @@ public class PaisFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            serviceGeneratorPais = ServiceGeneratorPais.createService(ServiceGeneratorPais.class);
-
+            listaPaises = new ArrayList<>();
+            myPaisRecyclerViewAdapter = new MyPaisRecyclerViewAdapter(context, listaPaises, paisesListener);
+            recyclerView.setAdapter(myPaisRecyclerViewAdapter);
+            paisService = ServiceGeneratorPais.createService(PaisService.class);
+            new LlamadaAsincTask().execute();
         }
         return view;
     }
@@ -95,11 +100,27 @@ public class PaisFragmentList extends Fragment {
         paisesListener = null;
     }
 
-    private class llamadaAsincTask extends AsyncTask<Void, Void ,List<Pais>>{
+    private class LlamadaAsincTask extends AsyncTask<Void, Void ,List<Pais>>{
+
+        @Override
+        protected void onPostExecute(List<Pais> pais) {
+            myPaisRecyclerViewAdapter.notifyDataSetChanged();
+        }
 
         @Override
         protected List<Pais> doInBackground(Void... voids) {
-            return null;
+            Call<List<Pais>>getPaises = paisService.listPaises();
+            Response<List<Pais>>responseGetAllPaises = null;
+            try {
+                responseGetAllPaises = getPaises.execute();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (responseGetAllPaises.isSuccessful()) {
+                listaPaises.addAll(responseGetAllPaises.body());
+            }
+            return listaPaises;
         }
     }
 }
