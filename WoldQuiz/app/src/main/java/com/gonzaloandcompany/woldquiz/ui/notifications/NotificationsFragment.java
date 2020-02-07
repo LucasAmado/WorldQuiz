@@ -36,10 +36,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class NotificationsFragment extends Fragment {
 
     private NotificationsViewModel notificationsViewModel;
-    List<User> userList = new ArrayList<>();
-    FirebaseFirestore db;
-    ListView lvUsers;
-    ArrayAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

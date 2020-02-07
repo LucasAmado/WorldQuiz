@@ -1,5 +1,6 @@
 package com.gonzaloandcompany.woldquiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -63,11 +64,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.filterIcon) {
-            //programar el filtro
-        } else if (id == R.id.searchIcon) {
-            //programar un buscar
-        } else if (id == R.id.quizIcon) {
+        if (id == R.id.quizIcon) {
             //programar intent para ir al quiz
         } else if (id == R.id.logout){
             user = FirebaseAuth.getInstance().getCurrentUser();

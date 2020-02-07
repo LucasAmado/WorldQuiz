@@ -7,9 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +22,6 @@ import android.view.ViewGroup;
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
 import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
 import com.gonzaloandcompany.woldquiz.models.Pais;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +43,7 @@ public class PaisFragmentList extends Fragment {
 
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    private List<String> listaMonedas;
+    private List<String> listaMonedas = new ArrayList<>();
     //TODO borrar
     private PaisService service;
     private List<Pais> listaPaises = new ArrayList<>();
@@ -60,40 +57,32 @@ public class PaisFragmentList extends Fragment {
     public PaisFragmentList() {
     }
 
+    //Crear un menú en el fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+    //Seleccionar el menú y añadir las opciones
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_pais_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    //Tratamiento del menú al seleccionar un icono
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.filterIcon:
-                //TODO hablar con miguel
-                /*DialogFragment dialog = new FilterPaisDialogFragment();
-                dialog.show(getSupportFragmentManager(), "FilterPaisDialogFragment");*/
-                new LoadPaisesByFiltro().execute();
-                break;
-
-            case R.id.searchIcon:
-                break;
-
-            case R.id.quizIcon:
-                Intent i = new Intent(getActivity(), QuizActivity.class);
+            case R.id.filter_icon:
+                Intent i = new Intent(getActivity(), FilterPaisActivity.class);
+                i.putStringArrayListExtra("monedas", (ArrayList<String>) listaMonedas);
                 startActivity(i);
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
