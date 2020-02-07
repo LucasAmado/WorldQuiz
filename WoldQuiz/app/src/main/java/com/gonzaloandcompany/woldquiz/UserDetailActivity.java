@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gonzaloandcompany.woldquiz.models.User;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gonzaloandcompany.woldquiz.service.UserService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

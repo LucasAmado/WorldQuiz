@@ -5,6 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.models.User;
 import com.gonzaloandcompany.woldquiz.quiz.QuizActivity;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
@@ -15,14 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-public class MainActivity extends AppCompatActivity implements IUserListener {
+public class MainActivity extends AppCompatActivity implements IUserListener, IPaisesListener {
 
     FirebaseUser user;
     GoogleSignInClient mGoogleSignInClient;
@@ -89,4 +90,9 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     }
 
 
+    @Override
+    public void onClickPais(Pais pais) {
+        Intent i = new Intent(this ,DetallePais.class);
+        //i.putExtra("name", pais);
+    }
 }

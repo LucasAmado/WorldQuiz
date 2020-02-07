@@ -2,12 +2,47 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f27b718-9793-4c3a-99ae-ff2ff9e02e6c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/LoginActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/MyQuizRecyclerViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/MyQuizResolvedViewAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/QuizActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/QuizFragment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/service/PaisService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/ic_filter_list_white_24dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/ic_incorrect.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/ic_score.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/ic_tick_green.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/radiobutton_quiz.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/radiobutton_quiz_checked.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/radiobutton_quiz_green.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/drawable/radiobutton_quiz_red.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/activity_user_detail.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/incorrect.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/score.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tick_green.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/IQuizListener.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/menu/bottom_nav_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/MyQuizRecyclerViewAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/PaisService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/QuizActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/UserDetailActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/QuizFragment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/ServiceGeneratorPais.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/service/ServiceGeneratorPais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Answer.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Answer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Pais.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Pais.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/QuestionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/QuestionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/models/Quiz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/QuizGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/java/com/gonzaloandcompany/woldquiz/quiz/IQuizListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/activity_quiz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/activity_quiz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/fragment_quiz.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/fragment_quiz.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/fragment_quiz_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/layout/fragment_quiz_list.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/menu/top_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/menu/top_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WoldQuiz/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/WoldQuiz/gradlew.bat" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,14 +64,14 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/WoldQuiz/app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/WoldQuiz" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

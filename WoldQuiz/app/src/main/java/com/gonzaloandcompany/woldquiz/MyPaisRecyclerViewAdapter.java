@@ -1,30 +1,30 @@
 package com.gonzaloandcompany.woldquiz;
 
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gonzaloandcompany.woldquiz.PaisFragmentList.OnListFragmentInteractionListener;
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.gonzaloandcompany.woldquiz.models.Pais;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private Context ctx;
+    private List<Pais> listaPaises;
+    private IPaisesListener paisesListener;
 
-    public MyPaisRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyPaisRecyclerViewAdapter(Context ctx, List<Pais> listaPaises, IPaisesListener paisesListener) {
+        this.ctx = ctx;
+        this.listaPaises = listaPaises;
+        this.paisesListener = paisesListener;
     }
 
     @Override
@@ -36,43 +36,41 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = listaPaises.get(position);
+        holder.tvPais.setText(holder.mItem.getName());
+        holder.tvCapital.setText(holder.mItem.getCapital());
+        holder.tvMoneda.setText(holder.mItem.getCurrencies().get(0).getName());
+        holder.tvIdioma.setText(holder.mItem.getLanguages().get(0).getName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
+        Glide.with(ctx)
+                .load("https://www.countryflags.io/" + holder.mItem.getAlpha2Code() + "/shiny/64.png")
+                .into(holder.ivBandera);
+       // holder.mView.setOnClickListener(new View.OnClickListener() {
+       // });
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return listaPaises.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public TextView tvPais;
+        public TextView tvCapital;
+        public TextView tvMoneda;
+        public TextView tvIdioma;
+        public ImageView ivBandera;
+        public Pais mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.item_number);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            tvPais = (TextView) view.findViewById(R.id.textViewDetallePais);
+            tvCapital = (TextView) view.findViewById(R.id.textViewCapital);
+            tvMoneda = (TextView) view.findViewById(R.id.textViewMoneda);
+            tvIdioma = (TextView) view.findViewById(R.id.textViewIdioma);
+            ivBandera = view.findViewById(R.id.imageViewBandera);
         }
     }
 }
