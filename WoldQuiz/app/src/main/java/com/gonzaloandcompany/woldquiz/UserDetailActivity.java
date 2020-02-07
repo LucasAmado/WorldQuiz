@@ -24,9 +24,10 @@ import java.io.IOException;
 
 public class UserDetailActivity extends AppCompatActivity {
     ImageView avatar, problemImg;
-    TextView name, email, score, games, problem;
+    TextView name, email, score, games, problem, scoreTitle, gamesTitle;
     User user = new User();
     ProgressBar progressBar;
+    View divider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class UserDetailActivity extends AppCompatActivity {
         score = findViewById(R.id.userDetailScore);
         problem = findViewById(R.id.problemMessage);
         progressBar = findViewById(R.id.userDetailProgressBar);
+        divider = findViewById(R.id.userDetailDivider);
+        scoreTitle = findViewById(R.id.userDetailTitleScore);
+        gamesTitle = findViewById(R.id.userDetailGamesTitle);
 
         UserService.getUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
@@ -54,7 +58,8 @@ public class UserDetailActivity extends AppCompatActivity {
                         user.setEmail(document.getString("email"));
                         user.setPartidas(Integer.parseInt(document.get("partidas").toString()));
                         user.setUrlFoto(document.getString("urlFoto"));
-                        user.setPuntos(Integer.parseInt(document.getString("puntos")));
+                        user.setPuntos(Integer.parseInt(document.get("puntos").toString()));
+                        Log.d("USER", user.toString());
 
                     } else {
                         Log.d("get failed with ", task.getException().toString());
@@ -68,6 +73,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.GONE);
                 if (user != null) {
+
                     name.setText(user.getNombre());
                     email.setText(user.getEmail());
                     games.setText(String.valueOf(user.getPartidas()));
@@ -81,8 +87,11 @@ public class UserDetailActivity extends AppCompatActivity {
                     avatar.setVisibility(View.VISIBLE);
                     name.setVisibility(View.VISIBLE);
                     email.setVisibility(View.VISIBLE);
+                    divider.setVisibility(View.VISIBLE);
                     games.setVisibility(View.VISIBLE);
                     score.setVisibility(View.VISIBLE);
+                    scoreTitle.setVisibility(View.VISIBLE);
+                    gamesTitle.setVisibility(View.VISIBLE);
 
                 } else {
                     problemImg.setVisibility(View.VISIBLE);
