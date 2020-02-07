@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.MainActivity;
@@ -69,6 +71,7 @@ public class QuizFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quiz_list, container, false);
         Button save = view.findViewById(R.id.quizButtonSave);
 
+
         if (view.findViewById(R.id.recyclerQuiz) != null) {
             Context context = view.getContext();
             RecyclerView recyclerView = view.findViewById(R.id.recyclerQuiz);
@@ -106,7 +109,9 @@ public class QuizFragment extends Fragment {
 
                             quizResolvedViewAdapter = new MyQuizResolvedViewAdapter(quizzes, context, mListener);
                             recyclerView.setAdapter(quizResolvedViewAdapter);
+
                             save.setText("Aceptar");
+
                             isFirstClick = false;
                         } else {
                             isFirstClick = true;
