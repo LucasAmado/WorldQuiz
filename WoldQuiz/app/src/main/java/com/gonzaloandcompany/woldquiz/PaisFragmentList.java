@@ -73,9 +73,7 @@ public class PaisFragmentList extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.filter_icon:
-                Intent i = new Intent(getActivity(), FilterPaisActivity.class);
-                i.putStringArrayListExtra("monedas", (ArrayList<String>) listaMonedas);
-                startActivity(i);
+                //TODO abrir dialog
                 break;
         }
         return super.onOptionsItemSelected(item);
