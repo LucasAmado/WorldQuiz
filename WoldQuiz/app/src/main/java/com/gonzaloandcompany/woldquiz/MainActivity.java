@@ -60,14 +60,10 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.filterIcon) {
-            //programar el filtro
-        } else if (id == R.id.searchIcon) {
-            //programar un buscar
-        } else if (id == R.id.quizIcon) {
+        if (id == R.id.quizIcon) {
             Intent quiz = new Intent(this, QuizActivity.class);
             startActivity(quiz);
-            //programar intent para ir al quiz
+
         } else if (id == R.id.logout) {
             user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseAuth.getInstance().signOut();
