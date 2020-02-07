@@ -4,6 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,15 +18,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent;
-import com.gonzaloandcompany.woldquiz.dummy.DummyContent.DummyItem;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 
 import java.io.IOException;
@@ -117,7 +114,7 @@ public class PaisFragmentList extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyPaisRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
         }
         return view;
     }
@@ -152,7 +149,7 @@ public class PaisFragmentList extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+
     }
 
     private class LoadPaisesByFiltro extends AsyncTask<String, Void, List<Pais>> {
