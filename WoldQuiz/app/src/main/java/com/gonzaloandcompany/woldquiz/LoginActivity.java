@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,7 +29,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     static final int GOOGLE_SIGN_IN = 123;
-
+    ImageView logo;
+    View background, footer;
     FirebaseAuth mAuth;
     SignInButton btn_login;
     FirebaseUser user;
@@ -41,6 +45,11 @@ public class LoginActivity extends AppCompatActivity {
 
         btn_login = findViewById(R.id.sign_in_button);
         progressBar = findViewById(R.id.progressBarLogin);
+        logo = findViewById(R.id.imageViewLogo);
+        background = findViewById(R.id.loginHalfBackground);
+        footer = findViewById(R.id.loginFooter);
+
+        Glide.with(this).load(R.drawable.logo).into(logo);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -62,6 +71,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public void SignInGoogle() {
         progressBar.setVisibility(View.VISIBLE);
+        btn_login.setVisibility(View.GONE);
+        logo.setVisibility(View.GONE);
+        background.setVisibility(View.GONE);
+        footer.setVisibility(View.GONE);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
 

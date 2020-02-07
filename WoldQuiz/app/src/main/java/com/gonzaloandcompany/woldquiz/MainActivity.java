@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.gonzaloandcompany.woldquiz.models.User;
+import com.gonzaloandcompany.woldquiz.quiz.QuizActivity;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -59,20 +60,19 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.filterIcon) {
-            //programar el filtro
-        } else if (id == R.id.searchIcon) {
-            //programar un buscar
-        } else if (id == R.id.quizIcon) {
-            //programar intent para ir al quiz
-        } else if (id == R.id.logout){
+        if (id == R.id.quizIcon) {
+            Intent quiz = new Intent(this, QuizActivity.class);
+            startActivity(quiz);
+
+        } else if (id == R.id.logout) {
             user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseAuth.getInstance().signOut();
             mGoogleSignInClient.signOut();
             Intent loginActivity = new Intent(this, LoginActivity.class);
             startActivity(loginActivity);
-        } else if (id == R.id.perfil){
-            //programar para ir al perfil
+        } else if (id == R.id.perfil) {
+            Intent perfil = new Intent(this, UserDetailActivity.class);
+            startActivity(perfil);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     public void onBackPressed() {
         this.finish();
     }
-
 
 
 }

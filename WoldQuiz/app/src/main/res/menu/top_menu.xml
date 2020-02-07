@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/filterIcon"
-        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="filter"
         app:showAsAction="ifRoom" />
     <item

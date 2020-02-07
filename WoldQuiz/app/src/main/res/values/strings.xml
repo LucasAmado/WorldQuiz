@@ -8,4 +8,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="OptionA">A. </string>
+    <string name="OptionB">B. </string>
+    <string name="OptionC">C. </string>
+    <string name="numberGames">Partidas</string>
+    <string name="puntos">Puntos</string>
+    <string name="problemMessage">Estamos teniendo problemas técnicos. Vuelva a iniciar sesión.</string>
 </resources>
