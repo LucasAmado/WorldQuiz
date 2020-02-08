@@ -102,6 +102,11 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
             case R.id.action_idioma:
 
                 break;
+
+            case R.id.refresh_icon:
+                myPaisRecyclerViewAdapter = new MyPaisRecyclerViewAdapter(context, listaPaises, paisesListener);
+                recyclerView.setAdapter(myPaisRecyclerViewAdapter);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
