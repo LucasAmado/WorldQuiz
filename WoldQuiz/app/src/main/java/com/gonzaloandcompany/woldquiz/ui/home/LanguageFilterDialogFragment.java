@@ -10,11 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.gonzaloandcompany.woldquiz.PaisFragmentList;
 import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
@@ -27,22 +25,28 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class CurrencyFilterDialogFragment extends DialogFragment {
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
+public class LanguageFilterDialogFragment extends DialogFragment {
 
     View v;
     ListView lvFiltro;
-    PaisService paisService;
-    List<Pais> paises = new ArrayList<>();
-    List<String> listaMostrar = new ArrayList<>();
+    List<String> lista = new ArrayList<>();
     DialogPassData dialogPassData;
 
-    public CurrencyFilterDialogFragment(DialogPassData dialogPassData, List<String> monedas) {
+   public LanguageFilterDialogFragment(DialogPassData dialogPassData, List<String> idiomas) {
+       this.dialogPassData = dialogPassData;
+       this.lista = idiomas;
+   }
+
+    public LanguageFilterDialogFragment(DialogPassData dialogPassData) {
         this.dialogPassData = dialogPassData;
-        this.listaMostrar = monedas;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        Log.e(TAG, "IDIOMAS: "+lista);
 
         // Configura el dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -50,27 +54,26 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
         // Configuración del diálogo
 
         builder.setTitle("Filtro de países");
-        builder.setMessage("Selecciona una moneda");
+        builder.setMessage("Selecciona un idioma");
 
         // Hacer que el diálogo sólo se pueda cerrar desde el botón
         // Cancelar o Guardar
         builder.setCancelable(true);
 
         // Cargar el layout del formulario
-        v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_filtro_moneda, null);
+        v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_filtro_idioma, null);
         builder.setView(v);
 
-        lvFiltro = v.findViewById(R.id.lvFiltro);
+        lvFiltro = v.findViewById(R.id.lvIdiomas);
 
-        PaisFilterAdapter adapter = new PaisFilterAdapter(
+        PaisFilterAdapter paisFilterAdapter = new PaisFilterAdapter(
                 getContext(),
                 android.R.layout.simple_list_item_1,
-                listaMostrar
+                lista
         );
 
 
-        lvFiltro.setAdapter(adapter);
-
+        lvFiltro.setAdapter(paisFilterAdapter);
 
         builder.setNegativeButton(R.string.button_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -79,20 +82,19 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
                 dialog.dismiss();
             }
         });
-         Dialog dialog = builder.create();
+        Dialog dialog = builder.create();
         lvFiltro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String)lvFiltro.getItemAtPosition(position);
-                Log.d("ITEM", item);
                 dialogPassData = (DialogPassData)getTargetFragment();
-                dialogPassData.filterByCoin(item);
+                dialogPassData.filterByLang(item);
                 dialog.dismiss();
             }
 
         });
 
-                // Create the AlertDialog object and return it
+        // Create the AlertDialog object and return it
 
         return dialog;
     }

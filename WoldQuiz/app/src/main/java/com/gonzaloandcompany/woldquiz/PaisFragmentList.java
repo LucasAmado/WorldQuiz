@@ -20,11 +20,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gonzaloandcompany.woldquiz.models.Currency;
+import com.gonzaloandcompany.woldquiz.models.Language;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
 import com.gonzaloandcompany.woldquiz.ui.home.CurrencyFilterDialogFragment;
 import com.gonzaloandcompany.woldquiz.ui.home.DialogPassData;
+import com.gonzaloandcompany.woldquiz.ui.home.LanguageFilterDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,8 +34,6 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PaisFragmentList extends Fragment implements DialogPassData {
 
@@ -45,7 +45,9 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
     private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
     DialogPassData dialogPassData;
     private List<Pais> byCoin;
-    private List<Pais> ByLang;
+    private List<Pais> byLang;
+    List<String> monedas;
+    List<String> idiomas;
     Context context;
     RecyclerView recyclerView;
 
@@ -75,6 +77,27 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
         recyclerView.setAdapter(myPaisRecyclerViewAdapter);
     }
 
+    @Override
+    public void filterByLang(String language) {
+        byLang = new ArrayList<>();
+
+        for (Pais p : listaPaises) {
+            if (p.getLanguages() != null) {
+                for (Language l : p.getLanguages()) {
+                    if (l.getName() != null) {
+                        if (l.getName().equals(language)) {
+                            byLang.add(p);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        myPaisRecyclerViewAdapter = new MyPaisRecyclerViewAdapter(context, byLang, paisesListener);
+        recyclerView.setAdapter(myPaisRecyclerViewAdapter);
+    }
+
     //Crear un menú en el fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -94,13 +117,15 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_coin:
-                DialogFragment dialog = new CurrencyFilterDialogFragment(dialogPassData);
+                DialogFragment dialog = new CurrencyFilterDialogFragment(dialogPassData, monedas);
                 dialog.setTargetFragment(this, 0);
                 dialog.show(getFragmentManager(), "MonedasFilterDialogFragment");
 
                 break;
             case R.id.action_idioma:
-
+                DialogFragment dialogo = new LanguageFilterDialogFragment(dialogPassData, idiomas);
+                dialogo.setTargetFragment(this, 0);
+                dialogo.show(getFragmentManager(), "LanguageFilterDialogFragment");
                 break;
 
             case R.id.refresh_icon:
@@ -183,6 +208,27 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
             }
             if (responseGetAllPaises.isSuccessful()) {
                 listaPaises.addAll(responseGetAllPaises.body());
+
+                monedas = new ArrayList<>();
+                idiomas = new ArrayList<>();
+
+                for (int i = 0; i < listaPaises.size(); i++) {
+                    for (int j = 0; j < listaPaises.get(i).getCurrencies().size(); j++) {
+                        String nombre = listaPaises.get(i).getCurrencies().get(j).getName();
+                        if (!monedas.contains(nombre) && nombre != null) {
+                            monedas.add(nombre);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < listaPaises.size(); i++) {
+                    for (int j = 0; j < listaPaises.get(i).getLanguages().size(); j++) {
+                        String nombre = listaPaises.get(i).getLanguages().get(j).getName();
+                        if (!idiomas.contains(nombre) && nombre != null) {
+                            idiomas.add(nombre);
+                        }
+                    }
+                }
 
             }
             return listaPaises;
