@@ -19,10 +19,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gonzaloandcompany.woldquiz.models.Currency;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
 import com.gonzaloandcompany.woldquiz.ui.home.CurrencyFilterDialogFragment;
+import com.gonzaloandcompany.woldquiz.ui.home.DialogPassData;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import retrofit2.Response;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class PaisFragmentList extends Fragment {
+public class PaisFragmentList extends Fragment implements DialogPassData {
 
     private List<Pais> listaPaises = new ArrayList<>();
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -41,10 +43,36 @@ public class PaisFragmentList extends Fragment {
     private IPaisesListener paisesListener;
     private PaisService paisService;
     private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
-
+    DialogPassData dialogPassData;
+    private List<Pais> byCoin;
+    private List<Pais> ByLang;
+    Context context;
     RecyclerView recyclerView;
 
     public PaisFragmentList() {
+
+    }
+
+    @Override
+    public void filterByCoin(String coinName) {
+        byCoin = new ArrayList<>();
+        Log.d("COINNAME", coinName);
+        Log.d("PAISES LISTA ", listaPaises.toString());
+        for (Pais p : listaPaises) {
+            if (p.getCurrencies() != null) {
+                for (Currency c : p.getCurrencies()) {
+                    if (c.getName() != null) {
+                        if (c.getName().equals(coinName)) {
+                            byCoin.add(p);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        myPaisRecyclerViewAdapter = new MyPaisRecyclerViewAdapter(context, byCoin, paisesListener);
+        recyclerView.setAdapter(myPaisRecyclerViewAdapter);
     }
 
     //Crear un menú en el fragment
@@ -66,11 +94,18 @@ public class PaisFragmentList extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_coin:
-                DialogFragment dialog = new CurrencyFilterDialogFragment();
+                DialogFragment dialog = new CurrencyFilterDialogFragment(dialogPassData);
+                dialog.setTargetFragment(this, 0);
                 dialog.show(getFragmentManager(), "MonedasFilterDialogFragment");
+
                 break;
             case R.id.action_idioma:
 
+                break;
+
+            case R.id.refresh_icon:
+                myPaisRecyclerViewAdapter = new MyPaisRecyclerViewAdapter(context, listaPaises, paisesListener);
+                recyclerView.setAdapter(myPaisRecyclerViewAdapter);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -92,7 +127,7 @@ public class PaisFragmentList extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
+            context = view.getContext();
             recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -115,6 +150,7 @@ public class PaisFragmentList extends Fragment {
         super.onAttach(context);
         if (context instanceof IPaisesListener) {
             paisesListener = (IPaisesListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement IPaisesListener");
@@ -125,12 +161,14 @@ public class PaisFragmentList extends Fragment {
     public void onDetach() {
         super.onDetach();
         paisesListener = null;
+        dialogPassData = null;
     }
 
     private class LlamadaAsincTask extends AsyncTask<Void, Void, List<Pais>> {
 
         @Override
         protected void onPostExecute(List<Pais> pais) {
+
             myPaisRecyclerViewAdapter.notifyDataSetChanged();
         }
 

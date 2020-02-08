@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,7 +34,11 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
     PaisService paisService;
     List<Pais> paises = new ArrayList<>();
     List<String> listaMostrar = new ArrayList<>();
+    DialogPassData dialogPassData;
 
+    public CurrencyFilterDialogFragment(DialogPassData dialogPassData) {
+        this.dialogPassData = dialogPassData;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -74,19 +79,22 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
                 dialog.dismiss();
             }
         });
-
+         Dialog dialog = builder.create();
         lvFiltro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object item = lvFiltro.getItemAtPosition(position);
-
+                String item = (String)lvFiltro.getItemAtPosition(position);
+                Log.d("ITEM", item);
+                dialogPassData = (DialogPassData)getTargetFragment();
+                dialogPassData.filterByCoin(item);
+                dialog.dismiss();
             }
 
         });
 
                 // Create the AlertDialog object and return it
 
-        return builder.create();
+        return dialog;
     }
 
 
