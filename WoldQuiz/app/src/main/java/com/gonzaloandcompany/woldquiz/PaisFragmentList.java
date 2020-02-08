@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gonzaloandcompany.woldquiz.ui.home.PaisFilterDialogFragment;
+import com.gonzaloandcompany.woldquiz.ui.home.MonedasFilterDialogFragment;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
@@ -63,12 +63,11 @@ public class PaisFragmentList extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_coin:
-                DialogFragment dialog = new PaisFilterDialogFragment();
-                dialog.show(getFragmentManager(), "FilterPaisFragment");
+                DialogFragment dialog = new MonedasFilterDialogFragment();
+                dialog.show(getFragmentManager(), "MonedasFilterDialogFragment");
                 break;
             case R.id.action_idioma:
-                DialogFragment dialogo = new PaisFilterDialogFragment();
-                dialogo.show(getFragmentManager(), "FilterPaisFragment");
+
                 break;
         }
         return super.onOptionsItemSelected(item);

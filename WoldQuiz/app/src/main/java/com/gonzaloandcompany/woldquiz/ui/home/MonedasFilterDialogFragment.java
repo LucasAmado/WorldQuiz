@@ -1,16 +1,12 @@
 package com.gonzaloandcompany.woldquiz.ui.home;
 
-import android.os.AsyncTask;
-import android.view.View;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -27,13 +23,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class PaisFilterDialogFragment extends DialogFragment {
+public class MonedasFilterDialogFragment extends DialogFragment {
 
     View v;
     List<Pais> paises = new ArrayList<>();
     List<String> listaMostrar = new ArrayList<>();
     PaisService paisService;
-    ListView listView;
+    ListView lvFiltro;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -53,20 +49,13 @@ public class PaisFilterDialogFragment extends DialogFragment {
         v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_filtro_pais, null);
         builder.setView(v);
 
-        listView = v.findViewById(R.id.listViewFilter);
+        lvFiltro = v.findViewById(R.id.listViewFilter);
 
         paisService = ServiceGeneratorPais.createService(PaisService.class);
 
-        new LoadPaises().execute();
+        new LoadMonedas().execute();
 
 
-        builder.setPositiveButton(R.string.button_guardar, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Guardar
-
-            }
-        });
 
         builder.setNegativeButton(R.string.button_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -76,15 +65,15 @@ public class PaisFilterDialogFragment extends DialogFragment {
             }
         });
 
-        // Create the AlertDialog object and return it
 
         return builder.create();
     }
 
-    private class LoadPaises extends AsyncTask<Void, Void, List<Pais>> {
+    private class LoadMonedas extends AsyncTask<Void, Void, List<String>> {
 
         @Override
-        protected List<Pais> doInBackground(Void... voids) {
+        protected List<String> doInBackground(Void... voids) {
+
             Call<List<Pais>> getPaises = paisService.listPaises();
             Response<List<Pais>> responseGetAllPaises = null;
             try {
@@ -95,16 +84,21 @@ public class PaisFilterDialogFragment extends DialogFragment {
             if (responseGetAllPaises.isSuccessful()) {
                 paises.addAll(responseGetAllPaises.body());
 
+                for (int i=0; i<paises.size();i++){
+                    for(int j=0;j<paises.get(i).getCurrencies().size();j++) {
+                        String nombre = paises.get(i).getCurrencies().get(j).getName();
+                        if(!listaMostrar.contains(nombre) && nombre!=null){
+                            listaMostrar.add(nombre);
+                        }
+                    }
+                }
+
             }
-            return paises;
+            return listaMostrar;
         }
 
         @Override
-        protected void onPostExecute(List<Pais> pais) {
-
-            listaMostrar.add("prueba");
-            listaMostrar.add("prueba 2");
-            listaMostrar.add("prueba 3");
+        protected void onPostExecute(List<String> list) {
 
             PaisFilterAdapter adapter = new PaisFilterAdapter(
                     getContext(),
@@ -112,8 +106,8 @@ public class PaisFilterDialogFragment extends DialogFragment {
                     listaMostrar
             );
 
-            // Conectar el adapter a la lista
-            listView.setAdapter(adapter);
+
+            lvFiltro.setAdapter(adapter);
         }
     }
 
