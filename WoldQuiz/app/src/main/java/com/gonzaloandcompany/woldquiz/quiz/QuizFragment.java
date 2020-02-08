@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -111,7 +112,8 @@ public class QuizFragment extends Fragment {
                             recyclerView.setAdapter(quizResolvedViewAdapter);
 
                             save.setText("Aceptar");
-
+                            DialogFragment dialogFragment=new QuizDialogFragment(result);
+                            dialogFragment.show(getFragmentManager(),"QuizDialogFragment");
                             isFirstClick = false;
                         } else {
                             isFirstClick = true;

@@ -9,7 +9,6 @@
     android:orientation="horizontal"
     android:paddingTop="16dp">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerQuiz"
         android:name="com.gonzaloandcompany.woldquiz.QuizFragment"
