@@ -47,66 +47,70 @@ public class UserDetailActivity extends AppCompatActivity {
         divider = findViewById(R.id.userDetailDivider);
         scoreTitle = findViewById(R.id.userDetailTitleScore);
         gamesTitle = findViewById(R.id.userDetailGamesTitle);
+        if (UserService.getUser() != null)
+            UserService.getUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
-        UserService.getUser().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 
-            @Override
-            public void onComplete(Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document= task.getResult();
-                    if (document.exists()) {
+                            user.setNombre(document.getString("nombre"));
+                            user.setEmail(document.getString("email"));
+                            user.setPartidas(Integer.parseInt(document.get("partidas").toString()));
+                            user.setUrlFoto(document.getString("urlFoto"));
+                            user.setPuntos(Integer.parseInt(document.get("puntos").toString()));
+                            Log.d("USER", user.toString());
 
-                        user.setNombre(document.getString("nombre"));
-                        user.setEmail(document.getString("email"));
-                        user.setPartidas(Integer.parseInt(document.get("partidas").toString()));
-                        user.setUrlFoto(document.getString("urlFoto"));
-                        user.setPuntos(Integer.parseInt(document.get("puntos").toString()));
-                        Log.d("USER", user.toString());
-
+                        } else {
+                            Log.d("get failed with ", task.getException().toString());
+                            user = null;
+                        }
                     } else {
-                        Log.d("get failed with ", task.getException().toString());
+
                         user = null;
                     }
-                } else {
 
-                    user = null;
+
+                    progressBar.setVisibility(View.GONE);
+
+                    if (user != null) {
+
+                        name.setText(user.getNombre());
+                        email.setText(user.getEmail());
+                        games.setText(String.valueOf(user.getPartidas()));
+                        score.setText(String.valueOf(user.getPuntos()));
+
+                        if (user.getUrlFoto() != null)
+                            Glide.with(UserDetailActivity.this).load(user.getUrlFoto()).circleCrop().into(avatar);
+                        else
+                            Glide.with(UserDetailActivity.this).load(R.drawable.default_avatar).circleCrop().into(avatar);
+
+                        avatar.setVisibility(View.VISIBLE);
+                        name.setVisibility(View.VISIBLE);
+                        email.setVisibility(View.VISIBLE);
+                        divider.setVisibility(View.VISIBLE);
+                        games.setVisibility(View.VISIBLE);
+                        score.setVisibility(View.VISIBLE);
+                        scoreTitle.setVisibility(View.VISIBLE);
+                        gamesTitle.setVisibility(View.VISIBLE);
+
+                    } else {
+                        showTechProblems();
+                    }
+
                 }
 
+            });
 
-                progressBar.setVisibility(View.GONE);
-                if (user != null) {
-
-                    name.setText(user.getNombre());
-                    email.setText(user.getEmail());
-                    games.setText(String.valueOf(user.getPartidas()));
-                    score.setText(String.valueOf(user.getPuntos()));
-
-                    if (user.getUrlFoto() != null)
-                        Glide.with(UserDetailActivity.this).load(user.getUrlFoto()).circleCrop().into(avatar);
-                    else
-                        Glide.with(UserDetailActivity.this).load(R.drawable.default_avatar).circleCrop().into(avatar);
-
-                    avatar.setVisibility(View.VISIBLE);
-                    name.setVisibility(View.VISIBLE);
-                    email.setVisibility(View.VISIBLE);
-                    divider.setVisibility(View.VISIBLE);
-                    games.setVisibility(View.VISIBLE);
-                    score.setVisibility(View.VISIBLE);
-                    scoreTitle.setVisibility(View.VISIBLE);
-                    gamesTitle.setVisibility(View.VISIBLE);
-
-                } else {
-                    problemImg.setVisibility(View.VISIBLE);
-                    problem.setVisibility(View.VISIBLE);
-                }
-
-            }
-
-        });
-
-
-
+        else
+            showTechProblems();
     }
 
+    public void showTechProblems(){
+        problemImg.setVisibility(View.VISIBLE);
+        problem.setVisibility(View.VISIBLE);
+    }
 
 }
