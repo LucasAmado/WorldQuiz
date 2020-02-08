@@ -40,7 +40,7 @@ public class QuizDialogFragment extends DialogFragment {
 
         if(result==5) {
             animation.setAnimation("stars.json");
-            message.setText("¡Enhorabuena, eres un máquina!");
+            message.setText("¡Enhorabuena, eres una máquina!");
         }else if(result==4) {
             animation.setAnimation("four_stars.json");
             message.setText("¡Bien! Estás más cerca de que te lleven a DisneyLand por tan buenas notas." +

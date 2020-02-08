@@ -14,5 +14,6 @@
     <string name="idioma">Idioma</string>
     <string name="capital">Capital</string>
     <string name="moneda">Moneda</string>
+    <string name="title_country">Países</string>
 
 </resources>
