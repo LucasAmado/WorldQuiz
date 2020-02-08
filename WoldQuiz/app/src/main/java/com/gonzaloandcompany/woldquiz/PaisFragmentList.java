@@ -3,10 +3,17 @@ package com.gonzaloandcompany.woldquiz;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
+import com.gonzaloandcompany.woldquiz.ui.home.CurrencyFilterDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +30,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PaisFragmentList extends Fragment {
 
@@ -32,22 +42,38 @@ public class PaisFragmentList extends Fragment {
     private PaisService paisService;
     private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
 
+    RecyclerView recyclerView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public PaisFragmentList() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static PaisFragmentList newInstance(int columnCount) {
-        PaisFragmentList fragment = new PaisFragmentList();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+    //Crear un menú en el fragment
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    //Seleccionar el menú y añadir las opciones
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_pais_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    //Tratamiento del menú al seleccionar un icono
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_coin:
+                DialogFragment dialog = new CurrencyFilterDialogFragment();
+                dialog.show(getFragmentManager(), "MonedasFilterDialogFragment");
+                break;
+            case R.id.action_idioma:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -67,7 +93,7 @@ public class PaisFragmentList extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -78,6 +104,7 @@ public class PaisFragmentList extends Fragment {
             recyclerView.setAdapter(myPaisRecyclerViewAdapter);
             paisService = ServiceGeneratorPais.createService(PaisService.class);
             new LlamadaAsincTask().execute();
+
         }
         return view;
     }
@@ -100,7 +127,7 @@ public class PaisFragmentList extends Fragment {
         paisesListener = null;
     }
 
-    private class LlamadaAsincTask extends AsyncTask<Void, Void ,List<Pais>>{
+    private class LlamadaAsincTask extends AsyncTask<Void, Void, List<Pais>> {
 
         @Override
         protected void onPostExecute(List<Pais> pais) {
@@ -109,18 +136,19 @@ public class PaisFragmentList extends Fragment {
 
         @Override
         protected List<Pais> doInBackground(Void... voids) {
-            Call<List<Pais>>getPaises = paisService.listPaises();
-            Response<List<Pais>>responseGetAllPaises = null;
+            Call<List<Pais>> getPaises = paisService.listPaises();
+            Response<List<Pais>> responseGetAllPaises = null;
             try {
                 responseGetAllPaises = getPaises.execute();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             if (responseGetAllPaises.isSuccessful()) {
                 listaPaises.addAll(responseGetAllPaises.body());
+
             }
             return listaPaises;
         }
     }
+
 }
