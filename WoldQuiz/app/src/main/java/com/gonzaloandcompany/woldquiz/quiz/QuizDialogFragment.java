@@ -39,7 +39,7 @@ public class QuizDialogFragment extends DialogFragment {
         animation = view.findViewById(R.id.quizDialogAnimation);
 
         if(result==5) {
-            animation.setAnimation("star.json");
+            animation.setAnimation("stars.json");
             message.setText("¡Enhorabuena, eres un máquina!");
         }else if(result==4) {
             animation.setAnimation("four_stars.json");
