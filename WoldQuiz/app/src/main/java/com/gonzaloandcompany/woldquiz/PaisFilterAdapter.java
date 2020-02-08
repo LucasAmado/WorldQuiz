@@ -1,22 +1,19 @@
-package com.gonzaloandcompany.woldquiz.ui.home;
+package com.gonzaloandcompany.woldquiz;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.gonzaloandcompany.woldquiz.R;
-
 import java.util.List;
 
 public class PaisFilterAdapter extends ArrayAdapter<String> {
+
     Context ctx;
     int layoutPlantilla;
     List<String> listaDatos;
@@ -46,4 +43,5 @@ public class PaisFilterAdapter extends ArrayAdapter<String> {
 
         return v;
     }
+
 }
