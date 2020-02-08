@@ -3,6 +3,7 @@ package com.gonzaloandcompany.woldquiz;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
+import com.gonzaloandcompany.woldquiz.ui.home.CurrencyFilterDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PaisFragmentList extends Fragment {
 
@@ -100,6 +104,10 @@ public class PaisFragmentList extends Fragment {
             recyclerView.setAdapter(myPaisRecyclerViewAdapter);
             paisService = ServiceGeneratorPais.createService(PaisService.class);
             new LlamadaAsincTask().execute();
+
+            Bundle bundle = this.getArguments();
+
+            Log.e(TAG, "bundle"+bundle);
         }
         return view;
     }

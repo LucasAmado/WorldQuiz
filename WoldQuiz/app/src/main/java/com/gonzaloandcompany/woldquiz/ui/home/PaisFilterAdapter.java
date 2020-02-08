@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.ui.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;

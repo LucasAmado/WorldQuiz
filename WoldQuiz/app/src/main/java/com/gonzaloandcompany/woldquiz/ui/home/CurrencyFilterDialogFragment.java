@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.ui.home;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -7,10 +7,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.gonzaloandcompany.woldquiz.PaisFragmentList;
+import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
@@ -71,7 +75,16 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
             }
         });
 
-        // Create the AlertDialog object and return it
+        lvFiltro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object item = lvFiltro.getItemAtPosition(position);
+
+            }
+
+        });
+
+                // Create the AlertDialog object and return it
 
         return builder.create();
     }
@@ -92,10 +105,10 @@ public class CurrencyFilterDialogFragment extends DialogFragment {
             if (responseGetAllPaises.isSuccessful()) {
                 paises.addAll(responseGetAllPaises.body());
 
-                for (int i=0; i<paises.size();i++){
-                    for(int j=0;j<paises.get(i).getCurrencies().size();j++) {
+                for (int i = 0; i < paises.size(); i++) {
+                    for (int j = 0; j < paises.get(i).getCurrencies().size(); j++) {
                         String nombre = paises.get(i).getCurrencies().get(j).getName();
-                        if(!listaMostrar.contains(nombre) && nombre!=null){
+                        if (!listaMostrar.contains(nombre) && nombre != null) {
                             listaMostrar.add(nombre);
                         }
                     }
