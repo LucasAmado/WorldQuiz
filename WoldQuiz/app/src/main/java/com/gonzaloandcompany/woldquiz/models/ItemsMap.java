@@ -14,10 +14,12 @@ public class ItemsMap implements ClusterItem {
     private final String mTitle;
     private final String mSnippet;
     private final Bitmap mbandera;
+    private final String mHabitantes;
 
 
-    public ItemsMap(double lat, double lng, String title, String snippet, Bitmap bandera) {
+    public ItemsMap(double lat, double lng, String title, String snippet, Bitmap bandera, String habitantes) {
         mbandera = bandera;
+        mHabitantes = habitantes;
         mPosition = new LatLng(lat, lng);
         mTitle = title;
         mSnippet = snippet;
@@ -39,4 +41,6 @@ public class ItemsMap implements ClusterItem {
     }
 
     public Bitmap getBandera(){return  mbandera;}
+
+    public String geHabitantes(){return  mHabitantes;}
 }
