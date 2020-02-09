@@ -1,11 +1,9 @@
-package com.gonzaloandcompany.woldquiz.ui.home;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,39 +12,27 @@ import android.widget.ListView;
 import androidx.fragment.app.DialogFragment;
 
 import com.gonzaloandcompany.woldquiz.R;
-import com.gonzaloandcompany.woldquiz.models.Pais;
-import com.gonzaloandcompany.woldquiz.service.PaisService;
-import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Response;
+public class FilterDialogFragment extends DialogFragment {
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
+    private View v;
+    private ListView lvFiltro;
+    private List<String> listaMostrar = new ArrayList<>();
+    private DialogPassData dialogPassData;
+    private String type;
+    private String coin="COIN";
 
-public class LanguageFilterDialogFragment extends DialogFragment {
-
-    View v;
-    ListView lvFiltro;
-    List<String> lista = new ArrayList<>();
-    DialogPassData dialogPassData;
-
-   public LanguageFilterDialogFragment(DialogPassData dialogPassData, List<String> idiomas) {
-       this.dialogPassData = dialogPassData;
-       this.lista = idiomas;
-   }
-
-    public LanguageFilterDialogFragment(DialogPassData dialogPassData) {
+    public FilterDialogFragment(DialogPassData dialogPassData, String type, List<String> monedas) {
         this.dialogPassData = dialogPassData;
+        this.listaMostrar = monedas;
+        this.type = type;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        Log.e(TAG, "IDIOMAS: "+lista);
 
         // Configura el dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -54,26 +40,27 @@ public class LanguageFilterDialogFragment extends DialogFragment {
         // Configuración del diálogo
 
         builder.setTitle("Filtro de países");
-        builder.setMessage("Selecciona un idioma");
+        builder.setMessage("Selecciona una moneda");
 
         // Hacer que el diálogo sólo se pueda cerrar desde el botón
         // Cancelar o Guardar
         builder.setCancelable(true);
 
         // Cargar el layout del formulario
-        v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_filtro_idioma, null);
+        v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_filtro_moneda, null);
         builder.setView(v);
 
-        lvFiltro = v.findViewById(R.id.lvIdiomas);
+        lvFiltro = v.findViewById(R.id.lvFiltro);
 
-        PaisFilterAdapter paisFilterAdapter = new PaisFilterAdapter(
+        PaisFilterAdapter adapter = new PaisFilterAdapter(
                 getContext(),
                 android.R.layout.simple_list_item_1,
-                lista
+                listaMostrar
         );
 
 
-        lvFiltro.setAdapter(paisFilterAdapter);
+        lvFiltro.setAdapter(adapter);
+
 
         builder.setNegativeButton(R.string.button_cancelar, new DialogInterface.OnClickListener() {
             @Override
@@ -86,9 +73,15 @@ public class LanguageFilterDialogFragment extends DialogFragment {
         lvFiltro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String)lvFiltro.getItemAtPosition(position);
-                dialogPassData = (DialogPassData)getTargetFragment();
-                dialogPassData.filterByLang(item);
+                String item = (String) lvFiltro.getItemAtPosition(position);
+                dialogPassData = (DialogPassData) getTargetFragment();
+
+                if (type.equals("COIN"))
+                    dialogPassData.filterByCoin(item);
+                 else
+                    dialogPassData.filterByLang(item);
+
+
                 dialog.dismiss();
             }
 

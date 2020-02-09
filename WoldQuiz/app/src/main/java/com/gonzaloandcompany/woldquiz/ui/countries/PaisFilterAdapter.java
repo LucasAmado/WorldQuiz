@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz.ui.home;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -33,12 +33,12 @@ public class PaisFilterAdapter extends ArrayAdapter<String> {
         // Rescatar una referencia de cada elemento visual de la plantilla (template)
         TextView tvNombre = v.findViewById(android.R.id.text1);
 
-        // Obtener los datos del alumno actual que debo dibujar
+        // Obtener los datos del país actual que debo dibujar
         String opcActual = listaDatos.get(position);
 
 
         // Insertar en los componentes de la plantilla
-        // los datos del alumno actual
+        // los datos del país actual
         tvNombre.setText(opcActual);
 
         return v;

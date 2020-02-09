@@ -2,22 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/refresh_icon"
-        android:icon="@drawable/ic_black_reload"
-        android:title="Refrescar"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/search_icon"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/filter_icon"
-        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:icon="@drawable/ic_filter_list_white_24dp"
         android:title="Filter"
         app:showAsAction="ifRoom">
-        <menu >
+        <menu>
             <item
                 android:id="@+id/action_coin"
                 android:title="Moneda" />
@@ -26,5 +15,10 @@
                 android:title="Idioma" />
         </menu>
     </item>
+    <item
+        android:id="@+id/refresh_icon"
+        android:icon="@drawable/ic_undo_black_24dp"
+        android:title="Refrescar"
+        app:showAsAction="ifRoom" />
 
 </menu>

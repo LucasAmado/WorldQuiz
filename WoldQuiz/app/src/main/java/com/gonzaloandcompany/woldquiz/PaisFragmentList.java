@@ -24,9 +24,8 @@ import com.gonzaloandcompany.woldquiz.models.Language;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
-import com.gonzaloandcompany.woldquiz.ui.home.CurrencyFilterDialogFragment;
-import com.gonzaloandcompany.woldquiz.ui.home.DialogPassData;
-import com.gonzaloandcompany.woldquiz.ui.home.LanguageFilterDialogFragment;
+import com.gonzaloandcompany.woldquiz.ui.countries.DialogPassData;
+import com.gonzaloandcompany.woldquiz.ui.countries.FilterDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,13 +42,16 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
     private IPaisesListener paisesListener;
     private PaisService paisService;
     private MyPaisRecyclerViewAdapter myPaisRecyclerViewAdapter;
-    DialogPassData dialogPassData;
+    private DialogPassData dialogPassData;
     private List<Pais> byCoin;
     private List<Pais> byLang;
-    List<String> monedas;
-    List<String> idiomas;
+    private List<String> monedas;
+    private List<String> idiomas;
+    static String TYPE_COIN = "COIN";
+    static String TYPE_LANG = "LANG";
     Context context;
     RecyclerView recyclerView;
+
 
     public PaisFragmentList() {
 
@@ -117,13 +119,13 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_coin:
-                DialogFragment dialog = new CurrencyFilterDialogFragment(dialogPassData, monedas);
+                DialogFragment dialog = new FilterDialogFragment(dialogPassData, TYPE_COIN, monedas);
                 dialog.setTargetFragment(this, 0);
                 dialog.show(getFragmentManager(), "MonedasFilterDialogFragment");
 
                 break;
             case R.id.action_idioma:
-                DialogFragment dialogo = new LanguageFilterDialogFragment(dialogPassData, idiomas);
+                DialogFragment dialogo = new FilterDialogFragment(dialogPassData, TYPE_LANG, idiomas);
                 dialogo.setTargetFragment(this, 0);
                 dialogo.show(getFragmentManager(), "LanguageFilterDialogFragment");
                 break;

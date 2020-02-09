@@ -5,8 +5,7 @@
     <item
         android:id="@+id/quizIcon"
         android:icon="@drawable/ic_quiz"
-        android:title="Quiz"
-        app:showAsAction="ifRoom" />
+        android:title="Quiz" />
     <item
         android:id="@+id/perfil"
         android:title="Mi perfil" />

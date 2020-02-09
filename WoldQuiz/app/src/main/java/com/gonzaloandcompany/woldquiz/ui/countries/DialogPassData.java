@@ -1,6 +1,5 @@
-package com.gonzaloandcompany.woldquiz.ui.home;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
-import com.gonzaloandcompany.woldquiz.models.Pais;
 
 public interface DialogPassData {
     void filterByCoin(String coinName);
