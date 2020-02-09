@@ -80,7 +80,7 @@ public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
                                     .into(new CustomTarget<Bitmap>() {
                                         @Override
                                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            ItemsMap a = new ItemsMap(p.getLatlng().get(0), p.getLatlng().get(1),p.getName(),p.getCapital(), resource, String.valueOf(p.getPopulation()));
+                                            ItemsMap a = new ItemsMap(p.getLatlng().get(0), p.getLatlng().get(1),p.getName(),p.getCapital(), resource, String.valueOf(p.getPopulation()), p.getAlpha2Code());
                                             clusterManager.addItem(a);
                                         }
                                         @Override

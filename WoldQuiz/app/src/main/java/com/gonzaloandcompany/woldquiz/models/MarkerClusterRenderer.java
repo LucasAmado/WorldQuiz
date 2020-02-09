@@ -1,6 +1,7 @@
 package com.gonzaloandcompany.woldquiz.models;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gonzaloandcompany.woldquiz.MainActivity;
 import com.gonzaloandcompany.woldquiz.R;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,10 +31,11 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
     private final ImageView markerImageView;
     private LayoutInflater layoutInflater;
     private GoogleMap googleMap;
+    private  Context context;
 
     public MarkerClusterRenderer(Context context, GoogleMap map, ClusterManager<ItemsMap> clusterManager) {
         super(context, map, clusterManager);
-
+        this.context = context;
         this.googleMap = map;
         layoutInflater = LayoutInflater.from(context);
 
@@ -63,7 +66,12 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        ItemsMap item = (ItemsMap) marker.getTag();
+        Toast.makeText(context, item.getIsoCode(), Toast.LENGTH_SHORT).show();
 
+        //Intent intent = new Intent(context, MainActivity.class);
+        //intent.putExtra("IsoCode",item.getIsoCode());
+        //context.startActivity(intent);
     }
 
     @Override
