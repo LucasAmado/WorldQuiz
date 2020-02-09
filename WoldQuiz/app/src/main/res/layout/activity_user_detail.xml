@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/userDetailName"
@@ -27,30 +28,33 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/userDetailAvatar"
         app:layout_constraintStart_toStartOf="@+id/userDetailAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/userDetailAvatar" />
+        app:layout_constraintTop_toBottomOf="@+id/userDetailAvatar"
+        android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/userDetailGamesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:text="@string/numberGames"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/userDetailDivider"
+        android:visibility="gone"/>
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/userDetailDivider"
         android:layout_width="409dp"
         android:layout_height="5dp"
         android:layout_marginTop="24dp"
         android:background="@color/background_quiz"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetailEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/userDetailEmail"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/userDetailNumberGames"
@@ -59,22 +63,24 @@
         android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="@+id/userDetailGamesTitle"
+        app:layout_constraintStart_toStartOf="@+id/userDetailGamesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailGamesTitle"
+        android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/userDetailTitleScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="24dp"
         android:text="@string/puntos"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toBottomOf="@+id/userDetailDivider"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/userDetailScore"
@@ -83,9 +89,10 @@
         android:layout_marginTop="24dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/userDetailTitleScore"
+        app:layout_constraintStart_toStartOf="@+id/userDetailTitleScore"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailTitleScore"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/userDetailEmail"
@@ -95,5 +102,44 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDetailName" />
+        app:layout_constraintTop_toBottomOf="@+id/userDetailName"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/userDetailProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userDetailAvatar" />
+
+    <ImageView
+        android:id="@+id/userDetailProblem"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userDetailAvatar"
+        app:srcCompat="@drawable/ic_technicalproblem"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/problemMessage"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/problemMessage"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/userDetailProblem"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/userDetailProblem"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailProblem"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.gonzaloandcompany.woldquiz.models.Pais;
-import com.gonzaloandcompany.woldquiz.models.User;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 import com.gonzaloandcompany.woldquiz.quiz.QuizActivity;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -61,14 +61,10 @@ public class MainActivity extends AppCompatActivity implements IUserListener, IP
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.filterIcon) {
-            //programar el filtro
-        } else if (id == R.id.searchIcon) {
-            //programar un buscar
-        } else if (id == R.id.quizIcon) {
+        if (id == R.id.quizIcon) {
             Intent quiz = new Intent(this, QuizActivity.class);
             startActivity(quiz);
-            //programar intent para ir al quiz
+
         } else if (id == R.id.logout) {
             user = FirebaseAuth.getInstance().getCurrentUser();
             FirebaseAuth.getInstance().signOut();
@@ -83,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener, IP
     }
 
 
-    public void onUserClick(User u) {
+    public void onUserClick(UserEntity u) {
 
     }
 

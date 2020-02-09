@@ -9,10 +9,16 @@
     <string name="OptionC">C. </string>
     <string name="numberGames">Partidas</string>
     <string name="puntos">Puntos</string>
+    <string name="problemMessage">Estamos teniendo problemas técnicos. Vuelva a iniciar sesión.</string>
     <string name="pais">Pais</string>
     <string name="idioma">Idioma</string>
     <string name="capital">Capital</string>
     <string name="moneda">Moneda</string>
+<<<<<<< HEAD
     <string name="pais">Pais</string>
     <string name="nHabitantes">Habitantes</string>
+=======
+    <string name="button_guardar">Guardar</string>
+    <string name="button_cancelar">Cancelar</string>
+>>>>>>> unsplash
 </resources>

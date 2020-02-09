@@ -4,11 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -68,6 +77,7 @@ public class QuizFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_quiz_list, container, false);
         Button save = view.findViewById(R.id.quizButtonSave);
 
+
         if (view.findViewById(R.id.recyclerQuiz) != null) {
             Context context = view.getContext();
             RecyclerView recyclerView = view.findViewById(R.id.recyclerQuiz);
@@ -105,7 +115,10 @@ public class QuizFragment extends Fragment {
 
                             quizResolvedViewAdapter = new MyQuizResolvedViewAdapter(quizzes, context, mListener);
                             recyclerView.setAdapter(quizResolvedViewAdapter);
+
                             save.setText("Aceptar");
+                            DialogFragment dialogFragment=new QuizDialogFragment(result);
+                            dialogFragment.show(getFragmentManager(),"QuizDialogFragment");
                             isFirstClick = false;
                         } else {
                             isFirstClick = true;
