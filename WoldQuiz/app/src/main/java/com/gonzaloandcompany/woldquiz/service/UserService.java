@@ -1,9 +1,6 @@
 package com.gonzaloandcompany.woldquiz.service;
 
-import android.util.Log;
-
-import com.gonzaloandcompany.woldquiz.models.User;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,7 +12,7 @@ public class UserService  {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private static FirebaseUser currentUser = mAuth.getCurrentUser();
-    private static User user =  new User();
+    private static UserEntity user =  new UserEntity();
 
     public UserService() {
     }
