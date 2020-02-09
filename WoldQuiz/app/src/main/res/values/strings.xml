@@ -13,4 +13,6 @@
     <string name="idioma">Idioma</string>
     <string name="capital">Capital</string>
     <string name="moneda">Moneda</string>
+    <string name="pais">Pais</string>
+    <string name="nHabitantes">Habitantes</string>
 </resources>

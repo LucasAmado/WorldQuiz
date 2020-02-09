@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements IUserListener, IP
     @Override
     public void onClickPais(Pais pais) {
         Intent i = new Intent(this ,DetallePais.class);
-        //i.putExtra("name", pais);
+        i.putExtra("name", pais.getName());
+        i.putExtra("capital", pais.getCapital());
+        i.putExtra("languages", pais.getLanguages().getClass().getName());
+        i.putExtra("currencies", pais.getCurrencies().getClass().getName());
+        i.putExtra("population", pais.getPopulation());
     }
 }
