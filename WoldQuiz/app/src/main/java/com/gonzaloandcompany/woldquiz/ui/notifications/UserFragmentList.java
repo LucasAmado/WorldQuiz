@@ -76,6 +76,7 @@ public class UserFragmentList extends Fragment {
                             if(u1.getPartidas()>0 && u2.getPartidas()>0){
                                 orden = -(u1.getPuntos()/u1.getPartidas() - u2.getPuntos()/u2.getPartidas());
                             }
+                            Toast.makeText(getContext(), "Lista por efectividad", Toast.LENGTH_LONG).show();
                             return orden;
                         }
                     });
@@ -88,6 +89,7 @@ public class UserFragmentList extends Fragment {
                         }
                     });
 
+                    Toast.makeText(getContext(), "Lista por puntos", Toast.LENGTH_LONG).show();
                 }
                 adapter = new MyUserRecyclerViewAdapter(
                         getActivity(),
@@ -129,10 +131,7 @@ public class UserFragmentList extends Fragment {
 
             userList = new ArrayList<>();
 
-            //TODO arreglar oder by
             db.collection("users")
-                    //.orderBy("puntos", Query.Direction.DESCENDING)
-                    .limit(10)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
