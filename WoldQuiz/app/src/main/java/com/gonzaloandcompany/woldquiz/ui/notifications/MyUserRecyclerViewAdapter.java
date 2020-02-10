@@ -44,10 +44,6 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
         holder.tvPuntos.setText(String.valueOf(holder.mItem.getPuntos()));
         holder.tvPartidas.setText(String.valueOf(holder.mItem.getPartidas())+" partidas");
 
-        if(holder.mItem.getUrlFoto()==""){
-            holder.mItem.setUrlFoto("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFxr5w6bxgin4xai7ml94KENW-HsV4MPgy12_aiCMFxGLMt-JI");
-        }
-
         Glide
                 .with(context)
                 .load(holder.mItem.getUrlFoto())

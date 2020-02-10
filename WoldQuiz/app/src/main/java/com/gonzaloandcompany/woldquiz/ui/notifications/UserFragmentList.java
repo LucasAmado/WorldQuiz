@@ -130,10 +130,7 @@ public class UserFragmentList extends Fragment {
 
             userList = new ArrayList<>();
 
-            //TODO arreglar oder by
             db.collection("users")
-                    //.orderBy("puntos", Query.Direction.DESCENDING)
-                    .limit(10)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
