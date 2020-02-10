@@ -1,5 +1,7 @@
 package com.gonzaloandcompany.woldquiz.models;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Translations {
+public class Translations implements Serializable {
     public String de;
     public String es;
     public String fr;

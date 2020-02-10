@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".UserDetailActivity">
+
+    <ImageView
+        android:id="@+id/userDetailAvatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/userDetailAvatar"
+        app:layout_constraintStart_toStartOf="@+id/userDetailAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailAvatar"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailGamesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/numberGames"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailDivider"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/userDetailDivider"
+        android:layout_width="409dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/background_quiz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailEmail"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailNumberGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/userDetailGamesTitle"
+        app:layout_constraintStart_toStartOf="@+id/userDetailGamesTitle"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailGamesTitle"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailTitleScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/puntos"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailDivider"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/userDetailTitleScore"
+        app:layout_constraintStart_toStartOf="@+id/userDetailTitleScore"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailTitleScore"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/userDetailEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailName"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/userDetailProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userDetailAvatar" />
+
+    <ImageView
+        android:id="@+id/userDetailProblem"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userDetailAvatar"
+        app:srcCompat="@drawable/ic_technicalproblem"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/problemMessage"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/problemMessage"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/userDetailProblem"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/userDetailProblem"
+        app:layout_constraintTop_toBottomOf="@+id/userDetailProblem"
+        android:visibility="gone"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

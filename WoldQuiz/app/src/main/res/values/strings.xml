@@ -4,4 +4,21 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="save">Guardar</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="OptionA">A. </string>
+    <string name="OptionB">B. </string>
+    <string name="OptionC">C. </string>
+    <string name="numberGames">Partidas</string>
+    <string name="puntos">Puntos</string>
+    <string name="problemMessage">Estamos teniendo problemas técnicos. Vuelva a iniciar sesión.</string>
+    <string name="pais">Pais</string>
+    <string name="idioma">Idioma</string>
+    <string name="capital">Capital</string>
+    <string name="moneda">Moneda</string>
+    <string name="nHabitantes">Habitantes</string>
+    <string name="button_guardar">Guardar</string>
+    <string name="button_cancelar">Cancelar</string>
 </resources>

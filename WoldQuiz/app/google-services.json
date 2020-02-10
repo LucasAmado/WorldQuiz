@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "131051218830-3ra1l23n3ajc34ericng4maukd4dss5p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gonzaloandcompany.woldquiz",
+            "certificate_hash": "b7c626d2cda127a27fb4335fbcde500ab50416e4"
+          }
+        },
+        {
           "client_id": "131051218830-u8h5gapflpahhno0tmndq50thsmk2oa9.apps.googleusercontent.com",
           "client_type": 3
         }
