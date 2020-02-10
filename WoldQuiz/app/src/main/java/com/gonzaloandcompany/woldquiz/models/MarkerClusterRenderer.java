@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
+import com.gonzaloandcompany.woldquiz.DetallePais;
 import com.gonzaloandcompany.woldquiz.MainActivity;
 import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.unsplash.Image;
@@ -20,9 +21,11 @@ import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
 import com.gonzaloandcompany.woldquiz.service.unsplash.ServiceGeneratorUnsplash;
 import com.gonzaloandcompany.woldquiz.service.unsplash.UnsplashService;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.Cluster;
@@ -45,9 +48,6 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
     private LayoutInflater layoutInflater;
     private GoogleMap googleMap;
     private Context context;
-    private String url;
-    private Image im;
-    UnsplashService unsplashService;
 
 
     public MarkerClusterRenderer(Context context, GoogleMap map, ClusterManager<ItemsMap> clusterManager) {
@@ -72,22 +72,24 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
         googleMap.setOnCameraIdleListener(clusterManager);
 
         googleMap.setOnMarkerClickListener(clusterManager);
+
+
     }
 
     @Override
     protected void onBeforeClusterItemRendered(ItemsMap item, MarkerOptions markerOptions) {
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(item.getBandera()));
+
     }
 
 
     public void onInfoWindowClick(Marker marker) {
         ItemsMap item = (ItemsMap) marker.getTag();
-        Toast.makeText(context, item.getIsoCode(), Toast.LENGTH_SHORT).show();
 
-        //Intent intent = new Intent(context, MainActivity.class);
-        //intent.putExtra("IsoCode",item.getIsoCode());
-        //context.startActivity(intent);
+        Intent intent = new Intent(context, DetallePais.class);
+        intent.putExtra("paisDetalle",item.getPais());
+        context.startActivity(intent);
     }
 
     @Override
@@ -120,9 +122,9 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
             TextView itemName = clusterItemView.findViewById(R.id.textViewNombre);
             TextView itemCapital = clusterItemView.findViewById(R.id.textViewCapital);
             TextView itemHabitantes = clusterItemView.findViewById(R.id.textViewHabitantes);
-            itemName.setText(item.getTitle());
-            itemCapital.setText(item.getSnippet());
-            itemHabitantes.setText(String.format("%,d",Integer.parseInt(item.geHabitantes())));
+            itemName.setText(item.getPais().getName());
+            itemCapital.setText(item.getPais().getCapital());
+            itemHabitantes.setText(String.format("%,d",item.getPais().getPopulation()));
             return clusterItemView;
 
         }
