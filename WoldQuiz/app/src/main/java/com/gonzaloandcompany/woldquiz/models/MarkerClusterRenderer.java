@@ -61,7 +61,6 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
     protected void onBeforeClusterItemRendered(ItemsMap item, MarkerOptions markerOptions) {
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(item.getBandera()));
-
     }
 
     @Override
