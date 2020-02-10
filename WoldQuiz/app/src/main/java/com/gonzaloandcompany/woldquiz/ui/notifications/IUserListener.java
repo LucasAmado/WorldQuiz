@@ -1,10 +1,10 @@
 package com.gonzaloandcompany.woldquiz.ui.notifications;
 
-import com.gonzaloandcompany.woldquiz.models.User;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 
 
 public interface IUserListener {
 
-    void onUserClick(User u);
+    void onUserClick(UserEntity u);
 
 }

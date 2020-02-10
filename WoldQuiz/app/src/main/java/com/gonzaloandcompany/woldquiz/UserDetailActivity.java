@@ -1,9 +1,7 @@
 package com.gonzaloandcompany.woldquiz;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,22 +10,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.gonzaloandcompany.woldquiz.models.User;
-import androidx.appcompat.app.AppCompatActivity;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 
 import com.gonzaloandcompany.woldquiz.service.UserService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-
-import java.io.IOException;
 
 public class UserDetailActivity extends AppCompatActivity {
     ImageView avatar, problemImg;
     TextView name, email, score, games, problem, scoreTitle, gamesTitle;
-    User user = new User();
+    UserEntity user = new UserEntity();
     ProgressBar progressBar;
     View divider;
 

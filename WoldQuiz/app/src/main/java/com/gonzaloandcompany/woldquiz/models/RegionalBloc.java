@@ -1,5 +1,6 @@
 package com.gonzaloandcompany.woldquiz.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RegionalBloc {
+public class RegionalBloc implements Serializable {
     public String acronym;
     public String name;
     public List<Object> otherAcronyms = null;

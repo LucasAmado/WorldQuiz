@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.gonzaloandcompany.woldquiz.R;
-import com.gonzaloandcompany.woldquiz.models.User;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ import java.util.List;
 public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder> {
 
     private Context context;
-    private final List<User> mValues;
+    private final List<UserEntity> mValues;
     private final IUserListener mListener;
 
-    public MyUserRecyclerViewAdapter(Context context, List<User> mValues, IUserListener mListener) {
+    public MyUserRecyclerViewAdapter(Context context, List<UserEntity> mValues, IUserListener mListener) {
         this.context = context;
         this.mValues = mValues;
         this.mListener = mListener;
@@ -73,7 +73,7 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
         public final View mView;
         public final TextView tvNombre, tvPuntos, tvPartidas;
         public final ImageView ivFoto;
-        public User mItem;
+        public UserEntity mItem;
 
         public ViewHolder(View view) {
             super(view);
