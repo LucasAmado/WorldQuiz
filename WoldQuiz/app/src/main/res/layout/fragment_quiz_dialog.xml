@@ -9,7 +9,7 @@
     tools:context=".quiz.QuizDialogFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/quizDialogAnimation"
+        android:id="@+id/locationId"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginTop="32dp"
@@ -32,10 +32,10 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/quizDialogAnimation"
+        app:layout_constraintEnd_toEndOf="@+id/locationId"
         app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="@+id/quizDialogAnimation"
-        app:layout_constraintTop_toBottomOf="@+id/quizDialogAnimation"
+        app:layout_constraintStart_toStartOf="@+id/locationId"
+        app:layout_constraintTop_toBottomOf="@+id/locationId"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

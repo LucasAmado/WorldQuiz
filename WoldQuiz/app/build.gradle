@@ -53,6 +53,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'androidx.mediarouter:mediarouter:1.1.0'
     implementation 'com.airbnb.android:lottie:3.3.1'
+    implementation 'com.synnapps:carouselview:0.1.5'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
 
 }

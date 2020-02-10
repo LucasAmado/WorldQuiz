@@ -2,19 +2,15 @@ package com.gonzaloandcompany.woldquiz.quiz;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -36,7 +32,7 @@ public class QuizDialogFragment extends DialogFragment {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_quiz_dialog,null);
 
         message= view.findViewById(R.id.quizDialogMessage);
-        animation = view.findViewById(R.id.quizDialogAnimation);
+        animation = view.findViewById(R.id.locationId);
 
         if(result==5) {
             animation.setAnimation("stars.json");

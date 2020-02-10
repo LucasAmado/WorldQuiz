@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".detallePais">
+    tools:context=".DetallePais">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="172dp"
-        android:layout_height="169dp"
+        android:id="@+id/imageViewBandera"
+        android:layout_width="171dp"
+        android:layout_height="125dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -22,9 +22,9 @@
         android:layout_marginStart="24dp"
         android:text="TextView"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewBandera"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBandera" />
 
     <TextView
         android:id="@+id/textViewIdiona"
@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/idioma"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -63,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/capital"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/textViewNombrePais"
         app:layout_constraintTop_toBottomOf="@+id/textViewNombrePais" />
 
@@ -83,13 +85,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/nHabitantes"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewHabitantes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -105,7 +108,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/moneda"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/carrusel"
+        android:layout_width="386dp"
+        android:layout_height="252dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:slideInterval="2500">
+
+    </com.synnapps.carouselview.CarouselView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/locationId"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carrusel"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="location.json"
+        app:lottie_loop="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
