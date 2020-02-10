@@ -20,11 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.gonzaloandcompany.woldquiz.R;
-import com.gonzaloandcompany.woldquiz.models.User;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,7 +39,7 @@ public class UserFragmentList extends Fragment {
 
     private int mColumnCount = 1;
     private IUserListener mListener;
-    private List<User> userList;
+    private List<UserEntity> userList;
     MyUserRecyclerViewAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
@@ -69,9 +68,9 @@ public class UserFragmentList extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_filtro:
                 if(tipoFiltro==0){
-                    Collections.sort(userList, new Comparator<User>() {
+                    Collections.sort(userList, new Comparator<UserEntity>() {
                         @Override
-                        public int compare(User u1, User u2) {
+                        public int compare(UserEntity u1, UserEntity u2) {
                             int orden = 0;
                             tipoFiltro=1;
                             if(u1.getPartidas()>0 && u2.getPartidas()>0){
@@ -81,9 +80,9 @@ public class UserFragmentList extends Fragment {
                         }
                     });
                 }else{
-                    Collections.sort(userList, new Comparator<User>() {
+                    Collections.sort(userList, new Comparator<UserEntity>() {
                         @Override
-                        public int compare(User u1, User u2) {
+                        public int compare(UserEntity u1, UserEntity u2) {
                             tipoFiltro=0;
                                 return -(u1.getPuntos() - u2.getPuntos());
                         }
@@ -140,16 +139,16 @@ public class UserFragmentList extends Fragment {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot d : task.getResult()) {
-                                    userList.add(new User(
+                                    userList.add(new UserEntity(
                                             d.getData().get("nombre").toString(),
                                             d.getData().get("urlFoto").toString(),
                                             Integer.parseInt(d.getData().get("puntos").toString()),
                                             Integer.parseInt(d.getData().get("partidas").toString())
                                     ));
 
-                                    Collections.sort(userList, new Comparator<User>() {
+                                    Collections.sort(userList, new Comparator<UserEntity>() {
                                         @Override
-                                        public int compare(User u1, User u2) {
+                                        public int compare(UserEntity u1, UserEntity u2) {
                                             return -(u1.getPuntos() - u2.getPuntos());
                                         }
                                     });

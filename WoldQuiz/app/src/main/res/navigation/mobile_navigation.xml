@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.gonzaloandcompany.woldquiz.ui.home.HomeFragment"
+        android:name="com.gonzaloandcompany.woldquiz.PaisFragmentList"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_pais_list" />
 
     <fragment
         android:id="@+id/navigation_maps"

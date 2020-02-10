@@ -5,7 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.gonzaloandcompany.woldquiz.models.User;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.gonzaloandcompany.woldquiz.models.Pais;
+import com.gonzaloandcompany.woldquiz.models.UserEntity;
 import com.gonzaloandcompany.woldquiz.quiz.QuizActivity;
 import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -15,14 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-public class MainActivity extends AppCompatActivity implements IUserListener {
+public class MainActivity extends AppCompatActivity implements IUserListener, IPaisesListener {
 
     FirebaseUser user;
     GoogleSignInClient mGoogleSignInClient;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     }
 
 
-    public void onUserClick(User u) {
+    public void onUserClick(UserEntity u) {
 
     }
 
@@ -89,4 +90,13 @@ public class MainActivity extends AppCompatActivity implements IUserListener {
     }
 
 
+    @Override
+    public void onClickPais(Pais pais) {
+        Intent i = new Intent(this ,DetallePais.class);
+        i.putExtra("name", pais.getName());
+        i.putExtra("capital", pais.getCapital());
+        i.putExtra("languages", pais.getLanguages().getClass().getName());
+        i.putExtra("currencies", pais.getCurrencies().getClass().getName());
+        i.putExtra("population", pais.getPopulation());
+    }
 }

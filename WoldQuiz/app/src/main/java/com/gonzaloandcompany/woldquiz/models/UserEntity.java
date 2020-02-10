@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class User {
+public class UserEntity {
     private String nombre, urlFoto, email;
     private int puntos, partidas;
     //TODO preguntar miguel Double efectividad
 
-    public User(String nombre, String urlFoto, int puntos, int partidas) {
+    public UserEntity(String nombre, String urlFoto, int puntos, int partidas) {
         this.nombre = nombre;
         this.urlFoto = urlFoto;
         this.puntos = puntos;

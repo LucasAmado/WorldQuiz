@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz.ui.home;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

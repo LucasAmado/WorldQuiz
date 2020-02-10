@@ -8,6 +8,8 @@
     android:background="@android:color/white"
     android:paddingTop="10dp">
 
+
+
     <TextView
         android:id="@+id/question"
         android:layout_width="323dp"
