@@ -9,7 +9,8 @@
     tools:context=".quiz.QuizDialogFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/locationId"
+
+        android:id="@+id/quizAnimation"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginTop="32dp"

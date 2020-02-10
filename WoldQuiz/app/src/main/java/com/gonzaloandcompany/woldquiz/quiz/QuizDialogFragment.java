@@ -32,7 +32,7 @@ public class QuizDialogFragment extends DialogFragment {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_quiz_dialog,null);
 
         message= view.findViewById(R.id.quizDialogMessage);
-        animation = view.findViewById(R.id.locationId);
+        animation = view.findViewById(R.id.quizAnimation);
 
         if(result==5) {
             animation.setAnimation("stars.json");
