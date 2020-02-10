@@ -14,6 +14,8 @@ import androidx.fragment.app.DialogFragment;
 import com.gonzaloandcompany.woldquiz.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class FilterDialogFragment extends DialogFragment {
@@ -51,6 +53,7 @@ public class FilterDialogFragment extends DialogFragment {
         builder.setView(v);
 
         lvFiltro = v.findViewById(R.id.lvFiltro);
+        Collections.sort(listaMostrar);
 
         PaisFilterAdapter adapter = new PaisFilterAdapter(
                 getContext(),
