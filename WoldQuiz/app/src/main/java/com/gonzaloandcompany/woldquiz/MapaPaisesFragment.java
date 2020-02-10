@@ -17,13 +17,13 @@ import com.bumptech.glide.request.transition.Transition;
 import com.gonzaloandcompany.woldquiz.models.ItemsMap;
 import com.gonzaloandcompany.woldquiz.models.MarkerClusterRenderer;
 import com.gonzaloandcompany.woldquiz.models.Pais;
-import com.gonzaloandcompany.woldquiz.models.unsplash.Image;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
-import com.gonzaloandcompany.woldquiz.service.unsplash.UnsplashService;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.List;
@@ -35,14 +35,8 @@ import retrofit2.Response;
 
 public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     PaisService paisService;
     List<Pais> listaPaises;
-    private ClusterManager<ItemsMap> mClusterManager;
-    UnsplashService unsplashService;
-    private String urlImagen;
-    private Image im;
-
     public MapaPaisesFragment() {
 
     }
@@ -68,6 +62,7 @@ public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
     private void setUpClusterManager(GoogleMap googleMap){
         ClusterManager<ItemsMap> clusterManager = new ClusterManager(getContext(), googleMap);
         googleMap.setOnCameraIdleListener(clusterManager);
+
         clusterManager.setRenderer(new MarkerClusterRenderer(getContext(), googleMap, clusterManager));
 
         paisService = ServiceGeneratorPais.createService(PaisService.class);
@@ -85,7 +80,7 @@ public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
                                     .into(new CustomTarget<Bitmap>() {
                                         @Override
                                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                            ItemsMap a = new ItemsMap(p.getLatlng().get(0), p.getLatlng().get(1),p.getName(),p.getCapital(), resource, String.valueOf(p.getPopulation()), p.getAlpha2Code());
+                                            ItemsMap a = new ItemsMap(p.getLatlng().get(0), p.getLatlng().get(1),p.getName(),p.getCapital(), resource, p);
                                             clusterManager.addItem(a);
                                         }
                                         @Override
