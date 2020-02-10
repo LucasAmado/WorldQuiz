@@ -15,7 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.models.UserEntity;
 import com.gonzaloandcompany.woldquiz.quiz.QuizActivity;
-import com.gonzaloandcompany.woldquiz.ui.notifications.IUserListener;
+import com.gonzaloandcompany.woldquiz.ui.users.IUserListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements IUserListener, IP
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_maps, R.id.navigation_ranking)
                 .build();

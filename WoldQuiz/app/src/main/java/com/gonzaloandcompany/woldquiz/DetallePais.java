@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,9 +20,6 @@ import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -78,7 +74,6 @@ public class DetallePais extends AppCompatActivity {
 
         service = ServiceGeneratorUnsplash.createService(UnsplashService.class);
 
-        //TODO Pasar el nombre del país como parámetro
         new ImageUnsplashAsync().execute(pais.getName());
     }
 
@@ -115,8 +110,6 @@ public class DetallePais extends AppCompatActivity {
             carrousel.setImageListener(new ImageListener() {
                 @Override
                 public void setImageForPosition(int position, ImageView imageView) {
-                    //imageView.setImageResource(images.get(position).);
-                    //imageView.setImageURI(Uri.parse(images.get(position).getResults().get(0).getUrls().getRegular()));
                     Glide.with(DetallePais.this)
                             .load(image.getResults().get(position).getUrls().getRegular()).into(imageView);
                 }

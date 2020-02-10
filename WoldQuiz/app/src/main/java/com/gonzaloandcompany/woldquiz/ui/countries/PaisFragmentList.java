@@ -1,9 +1,8 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,13 +18,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gonzaloandcompany.woldquiz.IPaisesListener;
+import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.Currency;
 import com.gonzaloandcompany.woldquiz.models.Language;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
-import com.gonzaloandcompany.woldquiz.ui.countries.DialogPassData;
-import com.gonzaloandcompany.woldquiz.ui.countries.FilterDialogFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,8 +59,6 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
     @Override
     public void filterByCoin(String coinName) {
         byCoin = new ArrayList<>();
-        Log.d("COINNAME", coinName);
-        Log.d("PAISES LISTA ", listaPaises.toString());
         for (Pais p : listaPaises) {
             if (p.getCurrencies() != null) {
                 Currency c = p.getCurrencies().get(0);
@@ -96,21 +93,18 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
         recyclerView.setAdapter(myPaisRecyclerViewAdapter);
     }
 
-    //Crear un menú en el fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
-    //Seleccionar el menú y añadir las opciones
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_pais_list, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    //Tratamiento del menú al seleccionar un icono
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz;
+package com.gonzaloandcompany.woldquiz.ui.countries;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.gonzaloandcompany.woldquiz.IPaisesListener;
+import com.gonzaloandcompany.woldquiz.R;
 import com.gonzaloandcompany.woldquiz.models.Pais;
 
 import java.util.List;

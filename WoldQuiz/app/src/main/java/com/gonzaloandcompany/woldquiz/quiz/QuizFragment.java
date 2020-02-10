@@ -107,8 +107,6 @@ public class QuizFragment extends Fragment {
                                 result += q.getPoints();
                             }
 
-                            Log.d("RESULTADO DEL TEST", String.valueOf(result));
-                            Log.d("TEST RESUELTO",quizzes.toString());
                             UserService.addGames();
                             UserService.addPointsUser(result);
 

@@ -1,4 +1,4 @@
-package com.gonzaloandcompany.woldquiz.ui.notifications;
+package com.gonzaloandcompany.woldquiz.ui.users;
 
 import androidx.recyclerview.widget.RecyclerView;
 

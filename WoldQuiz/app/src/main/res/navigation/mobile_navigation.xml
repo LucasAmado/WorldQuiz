@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.gonzaloandcompany.woldquiz.PaisFragmentList"
+        android:name="com.gonzaloandcompany.woldquiz.ui.countries.PaisFragmentList"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_pais_list" />
 
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/navigation_ranking"
-        android:name="com.gonzaloandcompany.woldquiz.ui.notifications.UserFragmentList"
+        android:name="com.gonzaloandcompany.woldquiz.ui.users.UserFragmentList"
         android:label="Ranking"
         tools:layout="@layout/fragment_user_list" />
 </navigation>
