@@ -64,13 +64,11 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
         Log.d("PAISES LISTA ", listaPaises.toString());
         for (Pais p : listaPaises) {
             if (p.getCurrencies() != null) {
-                for (Currency c : p.getCurrencies()) {
-                    if (c.getName() != null) {
-                        if (c.getName().equals(coinName)) {
-                            byCoin.add(p);
-                        }
+                Currency c = p.getCurrencies().get(0);
+                if (c != null) {
+                    if (c.getName().equals(coinName)) {
+                        byCoin.add(p);
                     }
-
                 }
             }
         }
@@ -85,13 +83,11 @@ public class PaisFragmentList extends Fragment implements DialogPassData {
 
         for (Pais p : listaPaises) {
             if (p.getLanguages() != null) {
-                for (Language l : p.getLanguages()) {
-                    if (l.getName() != null) {
-                        if (l.getName().equals(language)) {
-                            byLang.add(p);
-                        }
+                Language l = p.getLanguages().get(0);
+                if (l.getName() != null) {
+                    if (l.getName().equals(language)) {
+                        byLang.add(p);
                     }
-
                 }
             }
         }
