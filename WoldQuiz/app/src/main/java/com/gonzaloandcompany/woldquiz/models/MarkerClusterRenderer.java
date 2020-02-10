@@ -2,6 +2,7 @@ package com.gonzaloandcompany.woldquiz.models;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.gonzaloandcompany.woldquiz.MainActivity;
 import com.gonzaloandcompany.woldquiz.R;
+import com.gonzaloandcompany.woldquiz.models.unsplash.Image;
+import com.gonzaloandcompany.woldquiz.service.PaisService;
+import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
+import com.gonzaloandcompany.woldquiz.service.unsplash.ServiceGeneratorUnsplash;
+import com.gonzaloandcompany.woldquiz.service.unsplash.UnsplashService;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -23,6 +31,11 @@ import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 import com.google.maps.android.ui.IconGenerator;
 
 import java.text.DecimalFormat;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> implements ClusterManager.OnClusterClickListener<ItemsMap>, GoogleMap.OnInfoWindowClickListener {
 
@@ -31,7 +44,11 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
     private final ImageView markerImageView;
     private LayoutInflater layoutInflater;
     private GoogleMap googleMap;
-    private  Context context;
+    private Context context;
+    private String url;
+    private Image im;
+    UnsplashService unsplashService;
+
 
     public MarkerClusterRenderer(Context context, GoogleMap map, ClusterManager<ItemsMap> clusterManager) {
         super(context, map, clusterManager);
@@ -63,7 +80,7 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(item.getBandera()));
     }
 
-    @Override
+
     public void onInfoWindowClick(Marker marker) {
         ItemsMap item = (ItemsMap) marker.getTag();
         Toast.makeText(context, item.getIsoCode(), Toast.LENGTH_SHORT).show();
@@ -80,6 +97,7 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
 
     @Override
     protected void onClusterItemRendered(ItemsMap clusterItem, Marker marker) {
+
         marker.setTag(clusterItem);
     }
 
@@ -89,14 +107,16 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
 
         private final View clusterItemView;
 
+
         MyCustomClusterItemInfoView() {
             clusterItemView = layoutInflater.inflate(R.layout.marker_info_window, null);
         }
 
         @Override
         public View getInfoWindow(Marker marker) {
+
+
             ItemsMap item = (ItemsMap) marker.getTag();
-            if (item == null) return clusterItemView;
             TextView itemName = clusterItemView.findViewById(R.id.textViewNombre);
             TextView itemCapital = clusterItemView.findViewById(R.id.textViewCapital);
             TextView itemHabitantes = clusterItemView.findViewById(R.id.textViewHabitantes);
@@ -104,6 +124,7 @@ public class MarkerClusterRenderer extends DefaultClusterRenderer<ItemsMap> impl
             itemCapital.setText(item.getSnippet());
             itemHabitantes.setText(String.format("%,d",Integer.parseInt(item.geHabitantes())));
             return clusterItemView;
+
         }
 
         @Override

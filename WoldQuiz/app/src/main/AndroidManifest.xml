@@ -30,11 +30,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".QuizActivity" />
-        <activity android:name=".UserDetailActivity"></activity>
-        <activity android:name=".DetallePais"></activity>
         <activity android:name=".quiz.QuizActivity" />
         <activity android:name=".UserDetailActivity"></activity>
+        <activity android:name=".DetallePais"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

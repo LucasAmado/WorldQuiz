@@ -17,8 +17,10 @@ import com.bumptech.glide.request.transition.Transition;
 import com.gonzaloandcompany.woldquiz.models.ItemsMap;
 import com.gonzaloandcompany.woldquiz.models.MarkerClusterRenderer;
 import com.gonzaloandcompany.woldquiz.models.Pais;
+import com.gonzaloandcompany.woldquiz.models.unsplash.Image;
 import com.gonzaloandcompany.woldquiz.service.PaisService;
 import com.gonzaloandcompany.woldquiz.service.ServiceGeneratorPais;
+import com.gonzaloandcompany.woldquiz.service.unsplash.UnsplashService;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -37,6 +39,9 @@ public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
     PaisService paisService;
     List<Pais> listaPaises;
     private ClusterManager<ItemsMap> mClusterManager;
+    UnsplashService unsplashService;
+    private String urlImagen;
+    private Image im;
 
     public MapaPaisesFragment() {
 
@@ -107,4 +112,3 @@ public class MapaPaisesFragment extends Fragment implements OnMapReadyCallback {
     }
 
 }
-
