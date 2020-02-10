@@ -45,8 +45,12 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
         Glide.with(ctx)
                 .load("https://www.countryflags.io/" + holder.mItem.getAlpha2Code() + "/shiny/64.png")
                 .into(holder.ivBandera);
-       // holder.mView.setOnClickListener(new View.OnClickListener() {
-       // });
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                paisesListener.onClickPais(holder.mItem);
+            }
+        });
     }
 
     @Override
@@ -66,7 +70,7 @@ public class MyPaisRecyclerViewAdapter extends RecyclerView.Adapter<MyPaisRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            tvPais = (TextView) view.findViewById(R.id.textViewDetallePais);
+            tvPais = (TextView) view.findViewById(R.id.textViewNombrePais);
             tvCapital = (TextView) view.findViewById(R.id.textViewCapital);
             tvMoneda = (TextView) view.findViewById(R.id.textViewMoneda);
             tvIdioma = (TextView) view.findViewById(R.id.textViewIdioma);

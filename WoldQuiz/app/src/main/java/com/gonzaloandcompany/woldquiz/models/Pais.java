@@ -1,5 +1,6 @@
 package com.gonzaloandcompany.woldquiz.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Pais {
+public class Pais implements Serializable {
     public String name;
 
     public List<String> topLevelDomain;
